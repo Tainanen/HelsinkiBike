@@ -6,21 +6,26 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="asemat")
+@Table(name="stations")
 public class Station {
     @Id
     private int id;
-    @Column(name="id_asema")
-    private int asemaId;
-    private String nimi;
-    private String namn;
-    private String name;
-    private String osoite;
-    private String adress;
-    private String kaupunki;
-    private String stad;
-    private String operaattori;
-    private int kapasiteetti;
+    @Column(name="name_fin")
+    private String nameFin;
+    @Column(name="name_swe")
+    private String nameSwe;
+    @Column(name="name_en")
+    private String nameEn;
+    @Column(name="address_fin")
+    private String AddressFin;
+    @Column(name="address_swe")
+    private String AddressSwe;
+    @Column(name="city_fin")
+    private String cityFin;
+    @Column(name="city_swe")
+    private String citySwe;
+    private String operator;
+    private int capacity;
     private double y;
     private double x;
 
@@ -32,84 +37,76 @@ public class Station {
         this.id = id;
     }
 
-    public int getAsemaId() {
-        return asemaId;
+    public String getNameFin() {
+        return nameFin;
     }
 
-    public void setAsemaId(int asemaId) {
-        this.asemaId = asemaId;
+    public void setNameFin(String nameFin) {
+        this.nameFin = nameFin;
     }
 
-    public String getNimi() {
-        return nimi;
+    public String getNameSwe() {
+        return nameSwe;
     }
 
-    public void setNimi(String nimi) {
-        this.nimi = nimi;
+    public void setNameSwe(String nameSwe) {
+        this.nameSwe = nameSwe;
     }
 
-    public String getNamn() {
-        return namn;
+    public String getNameEn() {
+        return nameEn;
     }
 
-    public void setNamn(String namn) {
-        this.namn = namn;
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
     }
 
-    public String getName() {
-        return name;
+    public String getAddressFin() {
+        return AddressFin;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAddressFin(String addressFin) {
+        AddressFin = addressFin;
     }
 
-    public String getOsoite() {
-        return osoite;
+    public String getAddressSwe() {
+        return AddressSwe;
     }
 
-    public void setOsoite(String osoite) {
-        this.osoite = osoite;
+    public void setAddressSwe(String addressSwe) {
+        AddressSwe = addressSwe;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getCityFin() {
+        return cityFin;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setCityFin(String cityFin) {
+        this.cityFin = cityFin;
     }
 
-    public String getKaupunki() {
-        return kaupunki;
+    public String getCitySwe() {
+        return citySwe;
     }
 
-    public void setKaupunki(String kaupunki) {
-        this.kaupunki = kaupunki;
+    public void setCitySwe(String citySwe) {
+        this.citySwe = citySwe;
     }
 
-    public String getStad() {
-        return stad;
+    public String getOperator() {
+        return operator;
     }
 
-    public void setStad(String stad) {
-        this.stad = stad;
+    public void setOperator(String operator) {
+        this.operator = operator;
     }
 
-    public String getOperaattori() {
-        return operaattori;
+    public int getCapacity() {
+        return capacity;
     }
 
-    public void setOperaattori(String operaattori) {
-        this.operaattori = operaattori;
-    }
-
-    public int getKapasiteetti() {
-        return kapasiteetti;
-    }
-
-    public void setKapasiteetti(int kapasiteetti) {
-        this.kapasiteetti = kapasiteetti;
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
     public double getY() {
@@ -124,13 +121,25 @@ public class Station {
         return x;
     }
 
+    @Override
+    public String toString() {
+        return "Station{" +
+                "id=" + id +
+                ", nameFin='" + nameFin + '\'' +
+                ", nameSwe='" + nameSwe + '\'' +
+                ", nameEn='" + nameEn + '\'' +
+                ", AddressFin='" + AddressFin + '\'' +
+                ", AddressSwe='" + AddressSwe + '\'' +
+                ", cityFin='" + cityFin + '\'' +
+                ", citySwe='" + citySwe + '\'' +
+                ", operator='" + operator + '\'' +
+                ", capacity=" + capacity +
+                ", y=" + y +
+                ", x=" + x +
+                '}';
+    }
+
     public void setX(double x) {
         this.x = x;
     }
-
-
-
-
-
-
 }

@@ -12,17 +12,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class StationController {
-    private StationRepository repo;
+    private StationRepository srepo;
 
     @Autowired
-    StationController(StationRepository repo) {
+    StationController(StationRepository srepo) {
 
-        this.repo = repo;
+        this.srepo = srepo;
     }
 
     @GetMapping(value = "/stations")
     public List<Station> getStations() {
-        return repo.findAll();
+        return srepo.findAll();
 
     }
+
 }
