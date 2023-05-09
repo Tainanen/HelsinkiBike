@@ -32,10 +32,12 @@ public class TripController {
     }
     @GetMapping(value="/trips")
     public Page<Trip> getTrips (Pageable pageable) {
-        Page<Trip> results = trepo.findAll(pageable);
+        Page<Trip> results = trepo.getTripSummaries(pageable);
         return results;
 
 
     }
+
+
 
 }

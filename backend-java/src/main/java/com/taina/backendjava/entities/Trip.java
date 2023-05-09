@@ -19,8 +19,29 @@ public class Trip {
     private LocalDateTime returnTime;
     @Column(name = "Departure_station_id")
     private int departureStationId;
+    @Column(name = "Departure_station_name")
+    private String departureStationName;
     @Column(name = "Return_station_id")
     private int returnStationId;
+
+    public String getDepartureStationName() {
+        return departureStationName;
+    }
+
+    public void setDepartureStationName(String departureStationName) {
+        this.departureStationName = departureStationName;
+    }
+
+    public String getReturnStationName() {
+        return returnStationName;
+    }
+
+    public void setReturnStationName(String returnStationName) {
+        this.returnStationName = returnStationName;
+    }
+
+    @Column(name = "Return_station_name")
+    private String returnStationName;
     private int Distance_m;
     private int Duration_s;
 
@@ -80,5 +101,6 @@ public class Trip {
     public void setDuration_s(int duration_s) {
         Duration_s = duration_s;
     }
+
 }
 
