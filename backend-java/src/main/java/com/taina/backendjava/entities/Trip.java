@@ -24,6 +24,16 @@ public class Trip {
     @Column(name = "Return_station_id")
     private int returnStationId;
 
+    @Column(name = "Return_station_name")
+    private String returnStationName;
+
+
+    @Column(name="Distance_m")
+    private int distanceInMetres;
+    @Column(name="Duration_s")
+    private int durationInSeconds;
+
+
     public String getDepartureStationName() {
         return departureStationName;
     }
@@ -40,10 +50,22 @@ public class Trip {
         this.returnStationName = returnStationName;
     }
 
-    @Column(name = "Return_station_name")
-    private String returnStationName;
-    private int Distance_m;
-    private int Duration_s;
+    public int getDistanceInMetres() {
+        return distanceInMetres;
+    }
+
+    public void setDistanceInMetres(int distanceInMetres) {
+        this.distanceInMetres = distanceInMetres;
+    }
+
+    public int getDurationInSeconds() {
+        return durationInSeconds;
+    }
+
+    public void setDurationInSeconds(int durationInSeconds) {
+        this.durationInSeconds = durationInSeconds;
+    }
+
 
 
     public int getId() {
@@ -86,21 +108,6 @@ public class Trip {
         this.returnStationId = returnStationId;
     }
 
-    public int getDistance_m() {
-        return Distance_m;
-    }
-
-    public void setDistance_m(int distance_m) {
-        Distance_m = distance_m;
-    }
-
-    public int getDuration_s() {
-        return Duration_s;
-    }
-
-    public void setDuration_s(int duration_s) {
-        Duration_s = duration_s;
-    }
 
 }
 

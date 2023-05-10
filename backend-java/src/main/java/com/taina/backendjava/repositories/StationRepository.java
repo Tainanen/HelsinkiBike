@@ -1,7 +1,6 @@
 package com.taina.backendjava.repositories;
 
 import com.taina.backendjava.entities.Station;
-import com.taina.backendjava.entities.Trip;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,4 +12,8 @@ public interface StationRepository extends JpaRepository<Station, Integer>, Pagi
 
     @Query("SELECT s FROM Station s WHERE s.nameFin LIKE %:word% OR s.nameSwe LIKE %:word% OR s.nameSwe LIKE %:word%")
     Page<Station> searchStationByName(@Param("word") String word, Pageable pageable);
+
+
+
+
 }

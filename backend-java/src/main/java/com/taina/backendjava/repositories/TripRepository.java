@@ -10,22 +10,23 @@ import org.springframework.data.repository.query.Param;
 
 public interface TripRepository extends JpaRepository<Trip, Integer>, PagingAndSortingRepository <Trip, Integer> {
 
-    @Query("SELECT t.departureStationName, t.returnStationName, t.Distance_m / 1000.0 as Distance_km, t.Duration_s / 60.0 as Duration_min FROM Trip t")
+    @Query("SELECT t.departureStationName, t.returnStationName, t.distanceInMetres / 1000.0 as Distance_km, t.durationInSeconds / 60.0 as Duration_min FROM Trip t")
     Page<Trip> getTripListByPage (Pageable pageable);
 
-    @Query("SELECT t.departureStationName, t.returnStationName, t.Distance_m / 1000.0 as Distance_km, t.Duration_s / 60.0 as Duration_min FROM Trip t ORDER BY t.departureStationName")
+    @Query("SELECT t.departureStationName, t.returnStationName, t.distanceInMetres / 1000.0 as Distance_km, t.durationInSeconds/ 60.0 as Duration_min FROM Trip t ORDER BY t.departureStationName")
     Page<Trip> getTripOrderByDepStation(Pageable pageable);
 
-    @Query("SELECT t.departureStationName, t.returnStationName, t.Distance_m / 1000.0 as Distance_km, t.Duration_s / 60.0 as Duration_min FROM Trip t ORDER BY t.returnStationName")
+    @Query("SELECT t.departureStationName, t.returnStationName, t.distanceInMetres / 1000.0 as Distance_km, t.durationInSeconds / 60.0 as Duration_min FROM Trip t ORDER BY t.returnStationName")
     Page<Trip> getTripOrderByReturnStation(Pageable pageable);
 
-    @Query("SELECT t.departureStationName, t.returnStationName, t.Distance_m / 1000.0 as Distance_km, t.Duration_s / 60.0 as Duration_min FROM Trip t ORDER BY t.Distance_m / 1000.0")
+    @Query("SELECT t.departureStationName, t.returnStationName, t.distanceInMetres / 1000.0 as Distance_km, t.durationInSeconds / 60.0 as Duration_min FROM Trip t ORDER BY t.distanceInMetres / 1000.0")
     Page<Trip> getTripOrderByDistance(Pageable pageable);
 
 
-    @Query("SELECT t.departureStationName, t.returnStationName, t.Distance_m / 1000.0 as Distance_km, t.Duration_s / 60.0 as Duration_min FROM Trip t ORDER BY t.Duration_s / 60.0")
+    @Query("SELECT t.departureStationName, t.returnStationName, t.distanceInMetres / 1000.0 as Distance_km, t.durationInSeconds / 60.0 as Duration_min FROM Trip t ORDER BY t.durationInSeconds / 60.0")
     Page<Trip> getTripOrderByDuration(Pageable pageable);
 
     @Query("SELECT t FROM Trip t WHERE t.departureStationName LIKE %:word% OR t.returnStationName LIKE %:word%")
     Page<Trip> searchTripsByStation(@Param("word") String word, Pageable pageable);
+
 }

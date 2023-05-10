@@ -9,12 +9,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -24,8 +22,10 @@ public class TripController {
     private StationRepository srepo;
 
     @Autowired
-    TripController(TripRepository trepo) {
+    TripController(TripRepository trepo, StationRepository srepo) {
+
         this.trepo=trepo;
+        this.srepo=srepo;
     }
     @GetMapping(value = "/trips/{id}")
     public Trip getTripById(@PathVariable("id") int id) {
@@ -39,13 +39,27 @@ public class TripController {
     public Page<Trip> getTrips (Pageable pageable) {
         Page<Trip> results = trepo.getTripListByPage(pageable);
         return results;
-
     }
-    @GetMapping(value="/trips/de")
-    public Page<Trip> getTripsOrderByDepStation (Pageable pageable) {
-        Page<Trip> results = trepo.getTripOrderByDepStation(pageable);
-        return results;
 
+    @GetMapping("/trips/sort")
+    public Page<Trip> getTripsAndSort(
+            @RequestParam(defaultValue = "departureStationName") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortOrder,
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "20") int pageSize) {
+
+        Sort sort = sortOrder.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+
+        Page<Trip> trips = trepo.findAll(pageable);
+
+        return trips;
+    }
+
+    /*  @GetMapping(value="/trips/sort")
+    public Page<Trip> getTripsOrderByDepStation (Pageable pageable) {
+        Page<Trip> results = trepo.getTripOrderByReturnStation(pageable);
+        return results;
     }
     @GetMapping(value="/trips/re")
     public Page<Trip> getTripsOrderByReturnStation (Pageable pageable) {
@@ -61,7 +75,7 @@ public class TripController {
     public Page<Trip> getTripsOrderByDuration (Pageable pageable) {
         Page<Trip> results = trepo.getTripOrderByDuration(pageable);
         return results;
-    }
+    }*/
     @GetMapping(value="/trips/search")
     public Page<Trip> searchTripsByStation (@RequestParam String word, Pageable pageable) {
         Page<Trip> results = trepo.searchTripsByStation(word, pageable);
