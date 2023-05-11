@@ -6,6 +6,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Entity
@@ -106,6 +107,12 @@ public class Trip {
 
     public void setReturnStationId(int returnStationId) {
         this.returnStationId = returnStationId;
+    }
+
+    public String getFormattedDepartureTime() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        return this.departureTime.format(formatter);
+
     }
 
 

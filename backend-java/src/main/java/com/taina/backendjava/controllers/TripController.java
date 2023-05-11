@@ -35,9 +35,10 @@ public class TripController {
         }
         return t;
     }
-    @GetMapping(value="/trips")
-    public Page<Trip> getTrips (Pageable pageable) {
-        Page<Trip> results = trepo.getTripListByPage(pageable);
+    @GetMapping(value="/trips", produces="application/json")
+    @CrossOrigin(origins = "http://localhost:3000")
+    public Page<Trip> getAllTrips (Pageable pageable) {
+        Page<Trip> results = trepo.getAllTrips(pageable);
         return results;
     }
 
