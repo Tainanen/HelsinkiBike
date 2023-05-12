@@ -3,7 +3,6 @@ import './ListTrips.css';
 
 function ListTrips() {
     const [trips, setTrips] = useState([]);
-    const [pageNumber, setPageNumber] = useState(0);
     const [currentPage, setCurrentPage] = useState(0);
 
     const fetchTrips = async () => {
@@ -20,16 +19,19 @@ function ListTrips() {
         }
     };
 
-    const handleNextPage = () => {
-        setCurrentPage(currentPage + 1);
-    };
-
-    
-
     useEffect(() => {
         fetchTrips();
     }, [currentPage]);
 
+    const handleNextPage = () => {
+        setCurrentPage(currentPage + 1);
+    };
+
+    const handlePreviousPage = () => {
+        if (currentPage > 0) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
 
     return (
         <div>
@@ -54,6 +56,7 @@ function ListTrips() {
             ))}
                 </tbody>
             </table>
+            <button onClick={handlePreviousPage}>Previous page</button>
             <button onClick={handleNextPage}>Next page</button>
         </div>
     );
