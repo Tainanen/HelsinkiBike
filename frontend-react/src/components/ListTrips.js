@@ -3,23 +3,33 @@ import './ListTrips.css';
 
 function ListTrips() {
     const [trips, setTrips] = useState([]);
+    const [pageNumber, setPageNumber] = useState(0);
+    const [currentPage, setCurrentPage] = useState(0);
+
+    const fetchTrips = async () => {
+        try {
+            const url = `http://localhost:8080/api/trips?page=${currentPage}&size=20`;
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setTrips(data.content);
+        } catch (error) {
+            console.error(`Error fetching trips: ${error}`);
+        }
+    };
+
+    const handleNextPage = () => {
+        setCurrentPage(currentPage + 1);
+    };
+
+    
 
     useEffect(() => {
-        async function fetchTrips() {
-            try{
-                const response = await fetch('http://localhost:8080/api/trips');
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await response.json();
-                console.log('Data:', data);
-                setTrips(data.content);
-            } catch (error) {
-                console.error('Error fetching trips:', error);
-            }
-        }
         fetchTrips();
-    }, []);
+    }, [currentPage]);
+
 
     return (
         <div>
@@ -27,27 +37,24 @@ function ListTrips() {
             <table>
                 <thead>
                 <tr>
-                    <th>Departure</th>
-                    <th>Return</th>
                     <th>Departure Station Name</th>
                     <th>Return Station Name</th>
-                    <th>Distance</th>
-                    <th>Duration</th>
+                    <th>Distance (kilometres)</th>
+                    <th>Duration (minutes)</th>
                 </tr>
                 </thead>
                 <tbody>
             {trips.map((trip) => (
                 <tr key={trip.id}>
-                    <td>{trip.departureTime}</td>
-                    <td>{trip.returnTime}</td>
-                    <td>{trip.departureStationName}</td>
-                    <td>{trip.returnStationName}</td>
-                    <td>{trip.distanceInMetres}</td>
-                    <td>{trip.durationInSeconds}</td>
+                    <td>{trip[0]}</td>
+                    <td>{trip[1]}</td>
+                    <td>{trip[2]}</td>
+                    <td>{trip[3]}</td>
                 </tr>
             ))}
                 </tbody>
             </table>
+            <button onClick={handleNextPage}>Next page</button>
         </div>
     );
 }

@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class TripController {
@@ -36,9 +36,9 @@ public class TripController {
         return t;
     }
     @GetMapping(value="/trips", produces="application/json")
-    @CrossOrigin(origins = "http://localhost:3000")
-    public Page<Trip> getAllTrips (Pageable pageable) {
-        Page<Trip> results = trepo.getAllTrips(pageable);
+    public Page<Trip> getAllTripsListByPage(@RequestParam("page") int pageNumber, @RequestParam("size") int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<Trip> results = trepo.getTripListByPage(pageable);
         return results;
     }
 
