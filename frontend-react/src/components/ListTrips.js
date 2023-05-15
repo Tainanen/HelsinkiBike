@@ -34,14 +34,12 @@ function ListTrips() {
     }, [currentPage, sortOrder, sortColumn]);
 
     const handleSort = (columnName) => {
-        // if the same column is clicked, toggle the sort order
         if (columnName === sortColumn) {
             setSortOrder((order) => (order === 'asc' ? 'desc' : 'asc'));
         } else {
             setSortColumn(columnName);
             setSortOrder('asc');
         }
-        // always start from the first page when sorting
         setCurrentPage(0);
     };
 

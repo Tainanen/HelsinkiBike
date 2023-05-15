@@ -2,18 +2,20 @@ package com.taina.backendjava.controllers;
 
 import com.taina.backendjava.entities.RequestInfo;
 import com.taina.backendjava.entities.Station;
+import com.taina.backendjava.entities.Trip;
 import com.taina.backendjava.repositories.StationRepository;
 
 import com.taina.backendjava.repositories.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class StationController {
@@ -27,7 +29,7 @@ public class StationController {
         this.trepo = trepo;
     }
 
-    @GetMapping(value = "/stations")
+  /*  @GetMapping(value = "/stations")
     public List<Station> getStations() {
         List<Station> stations = srepo.findAll();
         if (stations.isEmpty()) {
@@ -35,7 +37,14 @@ public class StationController {
         }
         return stations;
     }
+*/
 
+    @GetMapping(value="/stations", produces="application/json")
+    public Page<Station> getAllStations (@RequestParam("page") int pageNumber, @RequestParam("size") int pageSize) {
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<Station> results = srepo.getAllStations(pageable);
+        return results;
+    }
     @GetMapping(value = "/stations/{id}")
     public Station getStationById(@PathVariable("id") int id) {
         Station s = srepo.findById(id).orElse(null);

@@ -17,13 +17,14 @@ public class Station {
     @Column(name="name_en")
     private String nameEn;
     @Column(name="address_fin")
-    private String AddressFin;
+    private String addressFin;
     @Column(name="address_swe")
-    private String AddressSwe;
+    private String addressSwe;
     @Column(name="city_fin")
     private String cityFin;
     @Column(name="city_swe")
     private String citySwe;
+
     private String operator;
     private int capacity;
     private double y;
@@ -62,19 +63,19 @@ public class Station {
     }
 
     public String getAddressFin() {
-        return AddressFin;
+        return addressFin;
     }
 
     public void setAddressFin(String addressFin) {
-        AddressFin = addressFin;
+        addressFin = addressFin;
     }
 
     public String getAddressSwe() {
-        return AddressSwe;
+        return addressSwe;
     }
 
     public void setAddressSwe(String addressSwe) {
-        AddressSwe = addressSwe;
+        addressSwe = addressSwe;
     }
 
     public String getCityFin() {
@@ -128,8 +129,8 @@ public class Station {
                 ", nameFin='" + nameFin + '\'' +
                 ", nameSwe='" + nameSwe + '\'' +
                 ", nameEn='" + nameEn + '\'' +
-                ", AddressFin='" + AddressFin + '\'' +
-                ", AddressSwe='" + AddressSwe + '\'' +
+                ", addressFin='" + addressFin + '\'' +
+                ", addressSwe='" + addressSwe + '\'' +
                 ", cityFin='" + cityFin + '\'' +
                 ", citySwe='" + citySwe + '\'' +
                 ", operator='" + operator + '\'' +
