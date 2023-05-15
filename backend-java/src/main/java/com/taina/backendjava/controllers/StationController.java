@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", maxAge = 10600)
 @RestController
 @RequestMapping("/api")
 public class StationController {

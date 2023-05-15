@@ -4,17 +4,19 @@ import './ListStations.css';
 function ListStations() {
     const [stations, setStations] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
-    const [sortOrder, setSortOrder] = useState('asc');
-    const [sortColumn, setSortColumn] = useState('departureStationName');
+    const [searchTerm, setSearchTerm] = useState('');
+    const [noStationsFound, setNoStationsFound] = useState(false);
 
     const fetchStations = async () => {
         try {
-            const url = `http://localhost:8080/api/stations?page=${currentPage}&size=20`;
+            const url = `http://localhost:8080/api/stations/search?word=${searchTerm}&page=${currentPage}&size=20`;
             const response = await fetch(url);
             if (!response.ok) {
+                setNoStationsFound(true);
                 throw new Error('Network response was not ok');
             }
             const data = await response.json();
+            setNoStationsFound(false);
             console.log(data);
             const stationsArray = data.content.map((station) => ({
                 id: station[0],
@@ -38,19 +40,15 @@ function ListStations() {
     };
 
     useEffect(() => {
-        fetchStations();
-    }, [currentPage]);
+        fetchStations(searchTerm);
+    }, [currentPage, searchTerm]);
 
- /*   const handleSort = (columnName) => {
-        if (columnName === sortColumn) {
-            setSortOrder((order) => (order === 'asc' ? 'desc' : 'asc'));
-        } else {
-            setSortColumn(columnName);
-            setSortOrder('asc');
-        }
+    const handleSearch = (event) => {
+        setSearchTerm(event.target.value);
         setCurrentPage(0);
+
     };
-*/
+
     const handleNextPage = () => {
         setCurrentPage((page) => page + 1);
     };
@@ -64,6 +62,14 @@ function ListStations() {
     return (
         <div>
             <h1>List of Bike Stations</h1>
+            <div>
+                <label htmlFor="search">Search:</label>
+                <input type="text" id="search" value={searchTerm} onChange={handleSearch} />
+            </div>
+            {noStationsFound ? (
+                <p>There are no stations with that name.</p>
+            ) : (
+                <>
             <table>
                 <thead>
                 <tr>
@@ -101,6 +107,8 @@ function ListStations() {
             </table>
             <button onClick={handlePreviousPage}>Previous page</button>
             <button onClick={handleNextPage}>Next page</button>
+                </>
+            )}
         </div>
     );
 }
