@@ -42,17 +42,17 @@ public class TripController {
         return results;
     }
 
-    @GetMapping("/trips/sort")
+    @GetMapping(value="/trips/sort", produces="application/json")
     public Page<Trip> getTripsAndSort(
             @RequestParam(defaultValue = "departureStationName") String sortBy,
             @RequestParam(defaultValue = "asc") String sortOrder,
-            @RequestParam(defaultValue = "0") int pageNo,
-            @RequestParam(defaultValue = "20") int pageSize) {
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
 
         Sort sort = sortOrder.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
-        Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
+        Pageable pageable = PageRequest.of(page, size, sort);
 
-        Page<Trip> trips = trepo.findAll(pageable);
+        Page<Trip> trips = trepo.getTripListByPage(pageable);
 
         return trips;
     }

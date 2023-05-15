@@ -46,14 +46,14 @@ function ListTrips() {
                 </tr>
                 </thead>
                 <tbody>
-            {trips.map((trip) => (
-                <tr key={trip.id}>
-                    <td>{trip[0]}</td>
-                    <td>{trip[1]}</td>
-                    <td>{trip[2]}</td>
-                    <td>{trip[3]}</td>
-                </tr>
-            ))}
+                {trips.map((trip) => (
+                    <tr key={trip.id}>
+                        <td>{trip[0]}</td>
+                        <td>{trip[1]}</td>
+                        <td>{trip[2]}</td>
+                        <td>{trip[3]}</td>
+                    </tr>
+                ))}
                 </tbody>
             </table>
             <button onClick={handlePreviousPage}>Previous page</button>
@@ -61,14 +61,4 @@ function ListTrips() {
         </div>
     );
 }
-
 export default ListTrips;
-
-
-
-
-
-
-
-
-
