@@ -4,24 +4,24 @@ import './ListTrips.css';
 function ListTrips() {
     const [trips, setTrips] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
+    const [sortOrder, setSortOrder] = useState('asc');
+    const [sortColumn, setSortColumn] = useState('departureStationName');
 
     const fetchTrips = async () => {
         try {
-            const url = `http://localhost:8080/api/trips?page=${currentPage}&size=20`;
+            const url = `http://localhost:8080/api/trips/sort?sortBy=${sortColumn}&sortOrder=${sortOrder}&page=${currentPage}&size=20`;
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             const data = await response.json();
-            const tripsArray = data.content.map(trip => {
-                return {
-                    id: trip[0],
-                    departureStationName: trip[1],
-                    returnStationName: trip[2],
-                    distanceInMetres: trip[3],
-                    durationInSeconds: trip[4],
-                }
-            });
+            const tripsArray = data.content.map((trip) => ({
+                id: trip[0],
+                departureStationName: trip[1],
+                returnStationName: trip[2],
+                distanceInMetres: trip[3],
+                durationInSeconds: trip[4]
+            }));
             console.log('Trips:', tripsArray);
             setTrips(tripsArray);
         } catch (error) {
@@ -31,37 +31,71 @@ function ListTrips() {
 
     useEffect(() => {
         fetchTrips();
-    }, [currentPage]);
+    }, [currentPage, sortOrder, sortColumn]);
+
+    const handleSort = (columnName) => {
+        // if the same column is clicked, toggle the sort order
+        if (columnName === sortColumn) {
+            setSortOrder((order) => (order === 'asc' ? 'desc' : 'asc'));
+        } else {
+            setSortColumn(columnName);
+            setSortOrder('asc');
+        }
+        // always start from the first page when sorting
+        setCurrentPage(0);
+    };
 
     const handleNextPage = () => {
-        setCurrentPage(currentPage + 1);
+        setCurrentPage((page) => page + 1);
     };
 
     const handlePreviousPage = () => {
         if (currentPage > 0) {
-            setCurrentPage(currentPage - 1);
+            setCurrentPage((page) => page - 1);
         }
     };
 
     return (
         <div>
             <h1>List of Bike Trips</h1>
+            <h2>Click the column names to sort the results!</h2>
             <table>
                 <thead>
                 <tr>
-                    <th>Departure Station Name</th>
-                    <th>Return Station Name</th>
-                    <th>Distance (kilometres)</th>
-                    <th>Duration (minutes)</th>
+                    <th onClick={() => handleSort('departureStationName')}>
+                        Departure Station Name
+                        {sortColumn === 'departureStationName' && (
+                            <span>{sortOrder === 'asc' ? ' ▲' : ' ▼'}</span>
+                        )}
+                    </th>
+                    <th onClick={() => handleSort('returnStationName')}>
+                        Return Station Name
+                        {sortColumn === 'returnStationName' && (
+                            <span>{sortOrder === 'asc' ? ' ▲' : ' ▼'}</span>
+                        )}
+                    </th>
+                    <th onClick={() => handleSort('distanceInMetres')}>
+                        Distance (kilometres)
+                        {sortColumn === 'distanceInMetres' && (
+                            <span>{sortOrder === 'asc' ? ' ▲' : ' ▼'}</span>
+                        )}
+                    </th>
+                    <th onClick={() => handleSort('durationInSeconds')}>
+                        Duration (minutes)
+                        {sortColumn === 'durationInSeconds' && (
+                            <span>{sortOrder === 'asc' ? ' ▲' : ' ▼'}</span>
+                        )}
+                    </th>
                 </tr>
+
                 </thead>
                 <tbody>
             {trips.map((trip) => (
                 <tr key={trip.id}>
                     <td>{trip.departureStationName}</td>
                     <td>{trip.returnStationName}</td>
-                    <td>{Number(trip.distanceInMetres / 1000.0).toFixed(2)}</td>
-                    <td>{Number(trip.durationInSeconds / 60.0).toFixed(2)}</td>
+                    <td>{trip.distanceInMetres.toFixed(2)}</td>
+                    <td>{trip.durationInSeconds.toFixed(2)}</td>
                 </tr>
             ))}
                 </tbody>
