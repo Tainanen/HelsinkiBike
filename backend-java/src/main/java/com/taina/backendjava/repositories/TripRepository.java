@@ -12,7 +12,7 @@ public interface TripRepository extends JpaRepository<Trip, Integer>, PagingAndS
     @Query("SELECT t from Trip t")
     Page<Trip> getAllTrips (Pageable pageable);
 
-    @Query("SELECT t.departureStationName, t.returnStationName, t.distanceInMetres / 1000.0 as DistanceKm, t.durationInSeconds / 60.0 as DurationMin FROM Trip t")
+    @Query("SELECT t.id, t.departureStationName, t.returnStationName, t.distanceInMetres / 1000.0 as DistanceKm, t.durationInSeconds / 60.0 as DurationMin FROM Trip t")
     Page<Trip> getTripListByPage (Pageable pageable);
 
     @Query("SELECT t.departureStationName, t.returnStationName, t.distanceInMetres / 1000.0 as Distance_km, t.durationInSeconds/ 60.0 as Duration_min FROM Trip t ORDER BY t.departureStationName")

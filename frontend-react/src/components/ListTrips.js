@@ -13,7 +13,17 @@ function ListTrips() {
                 throw new Error('Network response was not ok');
             }
             const data = await response.json();
-            setTrips(data.content);
+            const tripsArray = data.content.map(trip => {
+                return {
+                    id: trip[0],
+                    departureStationName: trip[1],
+                    returnStationName: trip[2],
+                    distanceInMetres: trip[3],
+                    durationInSeconds: trip[4],
+                }
+            });
+            console.log('Trips:', tripsArray);
+            setTrips(tripsArray);
         } catch (error) {
             console.error(`Error fetching trips: ${error}`);
         }
@@ -46,14 +56,14 @@ function ListTrips() {
                 </tr>
                 </thead>
                 <tbody>
-                {trips.map((trip) => (
-                    <tr key={trip.id}>
-                        <td>{trip[0]}</td>
-                        <td>{trip[1]}</td>
-                        <td>{trip[2]}</td>
-                        <td>{trip[3]}</td>
-                    </tr>
-                ))}
+            {trips.map((trip) => (
+                <tr key={trip.id}>
+                    <td>{trip.departureStationName}</td>
+                    <td>{trip.returnStationName}</td>
+                    <td>{Number(trip.distanceInMetres / 1000.0).toFixed(2)}</td>
+                    <td>{Number(trip.durationInSeconds / 60.0).toFixed(2)}</td>
+                </tr>
+            ))}
                 </tbody>
             </table>
             <button onClick={handlePreviousPage}>Previous page</button>
@@ -61,4 +71,14 @@ function ListTrips() {
         </div>
     );
 }
+
 export default ListTrips;
+
+
+
+
+
+
+
+
+
