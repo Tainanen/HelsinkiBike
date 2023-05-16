@@ -1,9 +1,8 @@
 package com.taina.backendjava.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name="stations")
@@ -29,6 +28,7 @@ public class Station {
     private int capacity;
     private double y;
     private double x;
+
 
     public int getId() {
         return id;

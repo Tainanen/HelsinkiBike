@@ -9,26 +9,17 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 public interface TripRepository extends JpaRepository<Trip, Integer>, PagingAndSortingRepository <Trip, Integer> {
-    @Query("SELECT t from Trip t")
-    Page<Trip> getAllTrips (Pageable pageable);
 
     @Query("SELECT t.id, t.departureStationName, t.returnStationName, t.distanceInMetres / 1000.0 as DistanceKm, t.durationInSeconds / 60.0 as DurationMin FROM Trip t")
     Page<Trip> getTripListByPage (Pageable pageable);
 
-    @Query("SELECT t.departureStationName, t.returnStationName, t.distanceInMetres / 1000.0 as Distance_km, t.durationInSeconds/ 60.0 as Duration_min FROM Trip t ORDER BY t.departureStationName")
-    Page<Trip> getTripOrderByDepStation(Pageable pageable);
-
-    @Query("SELECT t.departureStationName, t.returnStationName, t.distanceInMetres / 1000.0 as Distance_km, t.durationInSeconds / 60.0 as Duration_min FROM Trip t ORDER BY t.returnStationName")
-    Page<Trip> getTripOrderByReturnStation(Pageable pageable);
-
-    @Query("SELECT t.departureStationName, t.returnStationName, t.distanceInMetres / 1000.0 as Distance_km, t.durationInSeconds / 60.0 as Duration_min FROM Trip t ORDER BY t.distanceInMetres / 1000.0")
-    Page<Trip> getTripOrderByDistance(Pageable pageable);
-
-
-    @Query("SELECT t.departureStationName, t.returnStationName, t.distanceInMetres / 1000.0 as Distance_km, t.durationInSeconds / 60.0 as Duration_min FROM Trip t ORDER BY t.durationInSeconds / 60.0")
-    Page<Trip> getTripOrderByDuration(Pageable pageable);
-
     @Query("SELECT t FROM Trip t WHERE t.departureStationName LIKE %:word% OR t.returnStationName LIKE %:word%")
     Page<Trip> searchTripsByStation(@Param("word") String word, Pageable pageable);
+
+    @Query("SELECT COUNT(t) FROM Trip t WHERE t.departureStationId = :stationId")
+    int departureTripCount(@Param("stationId") Integer stationId);
+
+    @Query("SELECT COUNT(t) FROM Trip t WHERE t.returnStationId = :stationId")
+    int returnTripCount(@Param("stationId") Integer stationId);
 
 }

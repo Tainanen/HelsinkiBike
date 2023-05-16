@@ -57,26 +57,6 @@ public class TripController {
         return trips;
     }
 
-    /*  @GetMapping(value="/trips/sort")
-    public Page<Trip> getTripsOrderByDepStation (Pageable pageable) {
-        Page<Trip> results = trepo.getTripOrderByReturnStation(pageable);
-        return results;
-    }
-    @GetMapping(value="/trips/re")
-    public Page<Trip> getTripsOrderByReturnStation (Pageable pageable) {
-        Page<Trip> results = trepo.getTripOrderByReturnStation(pageable);
-        return results;
-    }
-    @GetMapping(value="/trips/di")
-    public Page<Trip> getTripsOrderByDistance (Pageable pageable) {
-        Page<Trip> results = trepo.getTripOrderByDistance(pageable);
-        return results;
-    }
-    @GetMapping(value="/trips/du")
-    public Page<Trip> getTripsOrderByDuration (Pageable pageable) {
-        Page<Trip> results = trepo.getTripOrderByDuration(pageable);
-        return results;
-    }*/
     @GetMapping(value="/trips/search")
     public Page<Trip> searchTripsByStation (@RequestParam String word, Pageable pageable) {
         Page<Trip> results = trepo.searchTripsByStation(word, pageable);

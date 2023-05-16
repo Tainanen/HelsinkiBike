@@ -17,6 +17,4 @@ public interface StationRepository extends JpaRepository<Station, Integer>, Pagi
     Page<Station> searchStationByName(@Param("word") String word, Pageable pageable);
 
 
-
-
 }
