@@ -143,4 +143,7 @@ public class Station {
     public void setX(double x) {
         this.x = x;
     }
+
+    public void setTripCount(int tripCount) {
+    }
 }

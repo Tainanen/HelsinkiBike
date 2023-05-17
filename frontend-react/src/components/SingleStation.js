@@ -8,6 +8,10 @@ function SingleStation() {
     const {id} = useParams();
     const [averageDistanceDeparture, setAverageDistanceDeparture] = useState(null);
     const [averageDistanceReturn, setAverageDistanceReturn] = useState(null);
+    const [popularReturnStations, setPopularReturnStations] = useState([]);
+    const [popularReturnCounts, setPopularReturnCounts] = useState([]);
+    const [popularDepartureStations, setPopularDepartureStations] = useState([]);
+    const [popularDepartureCounts, setPopularDepartureCounts] = useState([]);
 
     const fetchSingleStation = async () => {
         try {
@@ -52,11 +56,47 @@ function SingleStation() {
             console.error(`Error fetching average distance for return: ${error}`);
         }
     };
+    const fetchPopularReturnStations = async () => {
+        try {
+            const url = `http://localhost:8080/stations/${id}/popularReturnStations`;
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            console.log(data);
+            const stations = data.map((item) => item[0]);
+            const counts = data.map((item) => item[1]);
+            setPopularReturnStations(stations);
+            setPopularReturnCounts(counts);
+        } catch (error) {
+            console.error(`Error fetching average distance for return: ${error}`);
+        }
+    };
+    const fetchPopularDepartureStations = async () => {
+        try {
+            const url = `http://localhost:8080/stations/${id}/popularDepartureStations`;
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            console.log(data);
+            const stations = data.map((item) => item[0]);
+            const counts = data.map((item) => item[1]);
+            setPopularDepartureStations(stations);
+            setPopularDepartureCounts(counts);
+        } catch (error) {
+            console.error(`Error fetching average distance for return: ${error}`);
+        }
+    };
 
     useEffect(() => {
         fetchSingleStation();
         fetchAverageDistanceDeparture();
         fetchAverageDistanceReturn();
+        fetchPopularReturnStations();
+        fetchPopularDepartureStations()
     }, []);
 
     return (
@@ -72,6 +112,8 @@ function SingleStation() {
                         <th>Number of Return Journeys</th>
                         <th>Average Distance (km) of Departure Journeys</th>
                         <th>Average Distance (km) of Return Journeys</th>
+                        <th>Popular Return stations</th>
+                        <th>Popular Departure stations</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -82,6 +124,19 @@ function SingleStation() {
                         <td>{station.returnCount}</td>
                         <td>{averageDistanceDeparture.toFixed(2)}</td>
                         <td>{averageDistanceReturn.toFixed(2)}</td>
+                        <td> {popularReturnStations.map((station, index) => (
+                            <span key={station}>
+                                {station} ({popularReturnCounts[index]})
+                                {index !== popularReturnStations.length - 1 && ', '}
+                            </span>
+                        ))}
+                        </td>
+                        <td>{popularDepartureStations.map((station, index) => (
+                            <span key={station}>
+                                {station} ({popularDepartureCounts[index]})
+                                {index !== popularDepartureStations.length - 1 && ', '}
+                            </span>
+                        ))} </td>
                     </tr>
                     </tbody>
                 </table>
