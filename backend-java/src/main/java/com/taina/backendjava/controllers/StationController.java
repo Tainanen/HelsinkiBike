@@ -30,16 +30,6 @@ public class StationController {
         this.trepo = trepo;
     }
 
-  /*  @GetMapping(value = "/stations")
-    public List<Station> getStations() {
-        List<Station> stations = srepo.findAll();
-        if (stations.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No stations found");
-        }
-        return stations;
-    }
-*/
-
     @GetMapping(value="/stations", produces="application/json")
     public Page<Station> getAllStations (@RequestParam("page") int pageNumber, @RequestParam("size") int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);

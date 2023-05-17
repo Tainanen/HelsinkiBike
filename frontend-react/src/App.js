@@ -1,6 +1,7 @@
 import './App.css';
 import ListTrips from './components/ListTrips.js';
 import ListStations from './components/ListStations.js';
+import Home from './components/Home.js'
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import SingleStation from "./components/SingleStation.js";
 
@@ -9,24 +10,22 @@ function App() {
         <Router>
             <div className="App">
                 <nav>
-                    <ul>
                         <li>
-                            <Link to="/">Home</Link>
+                            <Link to="/">Main page</Link>
                         </li>
                         <li>
-                            <Link to="/trips">Trips</Link>
+                            <Link to="/trips">List of trips</Link>
                         </li>
                         <li>
-                            <Link to="/stations">Stations</Link>
+                            <Link to="/stations">List of stations</Link>
                         </li>
-                    </ul>
                 </nav>
 
                     <Routes>
                         <Route path="/trips" element={<ListTrips />} />
                         <Route path="/stations" element={<ListStations />} />
-                        <Route path="" element={<h1>Welcome to my app!</h1>} />
-                        <Route path="/singlestation" element={<SingleStation />} />
+                        <Route path="/" element={<Home />} />
+                        <Route path="/singlestation/:id" element={<SingleStation />} />
                     </Routes>
                 </div>
         </Router>

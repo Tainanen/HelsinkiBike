@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ListStations.css';
+import {Link} from "react-router-dom";
 
 function ListStations() {
     const [stations, setStations] = useState([]);
@@ -34,6 +35,7 @@ function ListStations() {
             }));
             console.log('Stations:', stationsArray);
             setStations(stationsArray);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         } catch (error) {
             console.error(`Error fetching trips: ${error}`);
         }
@@ -63,7 +65,7 @@ function ListStations() {
         <div>
             <h1>List of Bike Stations</h1>
             <div>
-                <label htmlFor="search">Search:</label>
+                <label htmlFor="search">Search by station name:</label>
                 <input type="text" id="search" value={searchTerm} onChange={handleSearch} />
             </div>
             {noStationsFound ? (
@@ -90,7 +92,9 @@ function ListStations() {
                 <tbody>
                 {stations.map((station) => (
                     <tr key={station.id}>
-                        <td>{station.nameFin}</td>
+                        <Link to={`/singlestation/${station.id}`}>
+                            {station.nameFin}
+                        </Link>
                         <td>{station.nameSwe}</td>
                         <td>{station.nameEn}</td>
                         <td>{station.addressFin}</td>

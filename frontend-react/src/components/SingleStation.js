@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './SingleStation.css';
+import { useParams } from 'react-router-dom';
+
 
 function SingleStation() {
     const [station, setStation] = useState(null);
+    const {id} = useParams();
 
     const fetchSingleStation = async () => {
         try {
-            const url = `http://localhost:8080/api/stations/5`;
+            const url = `http://localhost:8080/api/stations/${id}`;
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
