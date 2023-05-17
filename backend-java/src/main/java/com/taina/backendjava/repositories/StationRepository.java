@@ -13,5 +13,5 @@ public interface StationRepository extends JpaRepository<Station, Integer>, Pagi
     @Query("SELECT s.id, s.nameFin, s.nameSwe, s.nameEn, s.addressFin, s.addressSwe, s.cityFin, s.citySwe, s.operator, s.capacity, s.x, s.y from Station s WHERE s.nameFin LIKE %:word% OR s.nameSwe LIKE %:word% OR s.nameEn LIKE %:word%")
     Page<Station> searchStationByName(@Param("word") String word, Pageable pageable);
 
+    }
 
-}

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -47,8 +48,6 @@ public class StationController {
         }
         return results;
     }
-
-
     @PostMapping
     public Station createStation(@RequestBody Station s) {
         srepo.saveAndFlush(s);
@@ -68,5 +67,24 @@ public class StationController {
         }
         srepo.deleteById(id);
         return new RequestInfo("Station with ID " + id + " has been deleted");
+    }
+
+    @GetMapping("/{Id}/averageDistanceDeparture")
+    public ResponseEntity<Double> getAverageDistanceDeparture(@PathVariable int Id) {
+        Double averageDistance = trepo.findAverageDistanceByDepartureStationId(Id);
+        if (averageDistance != null) {
+            return ResponseEntity.ok(averageDistance);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @GetMapping("/{Id}/averageDistanceReturn")
+    public ResponseEntity<Double> getAverageDistanceReturn(@PathVariable int Id) {
+        Double averageDistance = trepo.findAverageDistanceByReturnStationId(Id);
+        if (averageDistance != null) {
+            return ResponseEntity.ok(averageDistance);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

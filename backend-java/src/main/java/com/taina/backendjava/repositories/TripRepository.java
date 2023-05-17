@@ -22,4 +22,10 @@ public interface TripRepository extends JpaRepository<Trip, Integer>, PagingAndS
     @Query("SELECT COUNT(t) FROM Trip t WHERE t.returnStationId = :stationId")
     int returnTripCount(@Param("stationId") Integer stationId);
 
+    @Query("SELECT AVG(t.distanceInMetres / 1000.0) FROM Trip t WHERE t.departureStationId = :Id")
+    Double findAverageDistanceByDepartureStationId(@Param("Id") int Id);
+
+    @Query("SELECT AVG(t.distanceInMetres / 1000.0) FROM Trip t WHERE t.returnStationId = :Id")
+    Double findAverageDistanceByReturnStationId(@Param("Id") int Id);
+
 }
