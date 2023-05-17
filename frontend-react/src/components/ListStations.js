@@ -7,6 +7,7 @@ function ListStations() {
     const [currentPage, setCurrentPage] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
     const [noStationsFound, setNoStationsFound] = useState(false);
+    const [totalPages, setTotalPages] = useState(0);
 
     const fetchStations = async () => {
         try {
@@ -35,6 +36,7 @@ function ListStations() {
             }));
             console.log('Stations:', stationsArray);
             setStations(stationsArray);
+            setTotalPages(data.totalPages);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } catch (error) {
             console.error(`Error fetching trips: ${error}`);
@@ -110,6 +112,7 @@ function ListStations() {
                 </tbody>
             </table>
             <button onClick={handlePreviousPage}>Previous page</button>
+                    <span>Page {currentPage + 1} of {totalPages}</span>
             <button onClick={handleNextPage}>Next page</button>
                 </>
             )}

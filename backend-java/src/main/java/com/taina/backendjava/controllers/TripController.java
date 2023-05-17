@@ -65,16 +65,4 @@ public class TripController {
         }
         return results;
     }
-
-
-
-
-
-
-
-
-
-
-
-
     }

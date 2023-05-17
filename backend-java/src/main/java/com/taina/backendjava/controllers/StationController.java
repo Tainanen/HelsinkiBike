@@ -3,9 +3,7 @@ package com.taina.backendjava.controllers;
 import com.taina.backendjava.entities.RequestInfo;
 import com.taina.backendjava.entities.SingleStation;
 import com.taina.backendjava.entities.Station;
-import com.taina.backendjava.entities.Trip;
 import com.taina.backendjava.repositories.StationRepository;
-
 import com.taina.backendjava.repositories.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", maxAge = 10600)
 @RestController
 @RequestMapping("/api")
@@ -30,12 +27,6 @@ public class StationController {
         this.trepo = trepo;
     }
 
-    @GetMapping(value="/stations", produces="application/json")
-    public Page<Station> getAllStations (@RequestParam("page") int pageNumber, @RequestParam("size") int pageSize) {
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
-        Page<Station> results = srepo.getAllStations(pageable);
-        return results;
-    }
     @GetMapping(value = "/stations/{id}")
     public SingleStation getStationById(@PathVariable("id") int id) {
         Station s = srepo.findById(id).orElse(null);
@@ -47,14 +38,6 @@ public class StationController {
                 trepo.returnTripCount(s.getId()));
         return st;
     }
-
-
-
-
-
-
-
-
 
     @GetMapping(value="/stations/search")
     public Page<Station> searchStationByName (@RequestParam String word, Pageable pageable) {

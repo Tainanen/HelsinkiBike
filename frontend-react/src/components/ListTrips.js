@@ -6,6 +6,7 @@ function ListTrips() {
     const [currentPage, setCurrentPage] = useState(0);
     const [sortOrder, setSortOrder] = useState('asc');
     const [sortColumn, setSortColumn] = useState('departureStationName');
+    const [totalPages, setTotalPages] = useState(0);
 
     const fetchTrips = async () => {
         try {
@@ -24,6 +25,7 @@ function ListTrips() {
             }));
             console.log('Trips:', tripsArray);
             setTrips(tripsArray);
+            setTotalPages(data.totalPages);
         } catch (error) {
             console.error(`Error fetching trips: ${error}`);
         }
@@ -99,6 +101,7 @@ function ListTrips() {
                 </tbody>
             </table>
             <button onClick={handlePreviousPage}>Previous page</button>
+            <span>Page {currentPage + 1} of {totalPages}</span> {/* Display current page and total pages */}
             <button onClick={handleNextPage}>Next page</button>
         </div>
     );
