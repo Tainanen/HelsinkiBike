@@ -1,6 +1,7 @@
 package com.taina.backendjava.controllers;
 
 
+import com.taina.backendjava.entities.RequestInfo;
 import com.taina.backendjava.entities.Trip;
 import com.taina.backendjava.repositories.StationRepository;
 import com.taina.backendjava.repositories.TripRepository;
@@ -15,7 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/trips")
 public class TripController {
     private TripRepository trepo;
 
@@ -27,7 +28,7 @@ public class TripController {
         this.trepo=trepo;
         this.srepo=srepo;
     }
-    @GetMapping(value = "/trips/{id}")
+    @GetMapping(value = "{id}")
     public Trip getTripById(@PathVariable("id") int id) {
         Trip t = trepo.findById(id).orElse(null);
         if (t == null) {
@@ -35,14 +36,14 @@ public class TripController {
         }
         return t;
     }
-    @GetMapping(value="/trips", produces="application/json")
+    @GetMapping(produces="application/json")
     public Page<Trip> getAllTripsListByPage(@RequestParam("page") int pageNumber, @RequestParam("size") int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         Page<Trip> results = trepo.getTripListByPage(pageable);
         return results;
     }
 
-    @GetMapping(value="/trips/sort", produces="application/json")
+    @GetMapping(value="/sort", produces="application/json")
     public Page<Trip> getTripsAndSort(
             @RequestParam(defaultValue = "departureStationName") String sortBy,
             @RequestParam(defaultValue = "asc") String sortOrder,
@@ -57,7 +58,7 @@ public class TripController {
         return trips;
     }
 
-    @GetMapping(value="/trips/search")
+    @GetMapping(value="/search")
     public Page<Trip> searchTripsByStation (@RequestParam String word, Pageable pageable) {
         Page<Trip> results = trepo.searchTripsByStation(word, pageable);
         if (results.isEmpty()) {
@@ -65,4 +66,25 @@ public class TripController {
         }
         return results;
     }
+    @PostMapping
+    public Trip createTrip(@RequestBody Trip t) {
+        trepo.saveAndFlush(t);
+        return t;
     }
+    @PutMapping("/{id}")
+    public Trip updateTrip (@PathVariable int id, @RequestBody Trip t) {
+        trepo.saveAndFlush(t);
+        return t;
+    }
+
+    @DeleteMapping("{id}")
+    RequestInfo delete(@PathVariable int id) {
+        Trip t = trepo.findById(id).orElse(null);
+        if (t == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found");
+        }
+        trepo.deleteById(id);
+        return new RequestInfo("Trip with ID " + id + " has been deleted");
+    }
+}
+

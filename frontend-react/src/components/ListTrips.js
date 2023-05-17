@@ -10,7 +10,7 @@ function ListTrips() {
 
     const fetchTrips = async () => {
         try {
-            const url = `http://localhost:8080/api/trips/sort?sortBy=${sortColumn}&sortOrder=${sortOrder}&page=${currentPage}&size=20`;
+            const url = `http://localhost:8080/trips/sort?sortBy=${sortColumn}&sortOrder=${sortOrder}&page=${currentPage}&size=20`;
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Network response was not ok');

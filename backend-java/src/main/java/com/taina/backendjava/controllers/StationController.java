@@ -15,7 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", maxAge = 10600)
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/stations")
 public class StationController {
     private StationRepository srepo;
     private TripRepository trepo;
@@ -27,7 +27,7 @@ public class StationController {
         this.trepo = trepo;
     }
 
-    @GetMapping(value = "/stations/{id}")
+    @GetMapping(value = "{id}")
     public SingleStation getStationById(@PathVariable("id") int id) {
         Station s = srepo.findById(id).orElse(null);
         if (s == null) {
@@ -39,7 +39,7 @@ public class StationController {
         return st;
     }
 
-    @GetMapping(value="/stations/search")
+    @GetMapping(value="/search")
     public Page<Station> searchStationByName (@RequestParam String word, Pageable pageable) {
         Page<Station> results = srepo.searchStationByName(word, pageable);
         if (results.isEmpty()) {
@@ -53,10 +53,14 @@ public class StationController {
     public Station createStation(@RequestBody Station s) {
         srepo.saveAndFlush(s);
         return s;
-
+    }
+    @PutMapping("/{id}")
+    public Station updateStation (@PathVariable int id, @RequestBody Station s) {
+        srepo.saveAndFlush(s);
+        return s;
     }
 
-    @DeleteMapping("/stations/{id}")
+    @DeleteMapping("{id}")
     RequestInfo delete(@PathVariable int id) {
         Station s = srepo.findById(id).orElse(null);
         if (s == null) {

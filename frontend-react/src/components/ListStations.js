@@ -11,7 +11,7 @@ function ListStations() {
 
     const fetchStations = async () => {
         try {
-            const url = `http://localhost:8080/api/stations/search?word=${searchTerm}&page=${currentPage}&size=20`;
+            const url = `http://localhost:8080/stations/search?word=${searchTerm}&page=${currentPage}&size=20`;
             const response = await fetch(url);
             if (!response.ok) {
                 setNoStationsFound(true);
