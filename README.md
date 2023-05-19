@@ -10,8 +10,6 @@ Photo by Eric Fischer, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, 
 2. [Technologies](#technologies)
 3. [Installation](#installation)
 4. [Database](#database)
-5. [Structure of the Application](#Structure)
-6. [Backend](#Backend)
 
 ### What does this application do?
 ***
