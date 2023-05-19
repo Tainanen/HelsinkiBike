@@ -5,11 +5,13 @@
 Photo by Eric Fischer, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, via Wikimedia Commons
 
 ## Table of Contents
+***
 1. [What does this application do?](#general-info)
 2. [Technologies](#technologies)
-3. [Database](#database)
-4. [Structure of the Application](#Structure)
-5. [Backend](#Backend)
+3. [Installation](#installation)
+4. [Database](#database)
+5. [Structure of the Application](#Structure)
+6. [Backend](#Backend)
 
 ### What does this application do?
 ***
@@ -31,3 +33,14 @@ A list of technologies used within the project:
 This application was made on Windows 11.
 The backend of the application is built using Spring Boot, a Java-based framework, with JDK 17. It utilizes MySQL as the database for data storage.
 The frontend of the application is built using React and utilizes React Router for routing functionality. Node.js is required as a prerequisite for development and building the React application.
+
+### Installation and running the application
+***
+1. Clone the repository to your local machine.
+2. Navigate to the project directory.
+3. Install the necessary dependencies for the backend using the package manager of your choice (for example Maven).
+4. Configure the database connection in the application properties file located in the backend directory.
+5. Run the project using the provided build command.
+6. Install the necessary dependencies for the frontend using the package manager of your choice (for example NPM).
+7. Run the frontend development server.
+8. The backend will be running on http://localhost:8080, and the frontend will be running on http://localhost:3000.
