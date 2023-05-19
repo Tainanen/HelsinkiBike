@@ -43,4 +43,4 @@ The frontend of the application is built using React and utilizes React Router f
 5. Run the project using the provided build command.
 6. Install the necessary dependencies for the frontend using the package manager of your choice (for example NPM).
 7. Run the frontend development server.
-8. The backend will be running on http://localhost:8080, and the frontend will be running on http://localhost:3000.
+8. The application will run in your web browser at http://localhost:3000.
