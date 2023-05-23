@@ -62,8 +62,8 @@ The frontend of the application is built using React and utilizes React Router f
 * DELETE FROM trips WHERE distance_m is < 10;
 * DELETE FROM trips WHERE duration_s is < 10;
 * DELETE FROM from trips WHERE id IN (SELECT id FROM trips GROUP BY departure, `return`, departure_station_id, departure_station_name, return_station_id, return_station_name, distance_m, duration_s HAVING COUNT(*) > 1);
-* update stations set city_fin = "Helsinki" where city_fin is null;
-* update stations set city_swe = "Helsingfors" where city_swe is null;
+* UPDATE stations SET city_fin = "Helsinki" WHERE city_fin is null;
+* UPDATE stations SET city_swe = "Helsingfors" WWHERE city_swe is null;
 
 ### Features
 ***
@@ -78,7 +78,21 @@ these fatures can be found from my application:
 * shows station name, station address, total number of journeys starting from the station, total number of journeys ending at the station, the average distance of a journey starting from the station, the average distance of a journey ending at the station, top 5 most popular return stations for journeys starting from the station and top 5 most popular departure stations for journeys ending at the station
 4. Endpoints to store new journeys data or new bicycle stations
 * possible to create, update and remove journeys and stations
-* TODO 5. Running backend in Docker
+5. [Running backend and database in Docker](#running-backend-and-database-in-docker)
 * TODO 6. Running backend in Cloud
 * TODO? 7. Create UI for adding journeys or bicycle stations
+
+### Running (Spring Boot) backend and (MySQL) database in Docker
+***
+This is how I did it:
+1. I got Docker  (https://www.docker.com/products/docker) and installed it.
+2. I started Docker Service (I used Docker Desktop and it needs to be running when building and running containers).
+3. For the database, I created MySQL Docker Container by pulling the latest MySQL Docker image and running it ("docker pull mysql:latest" and "docker run (write here your own configurations about the name of the container, port it's using, networks, tags etc)" !Remember! The MySQL container needs to be located in the same network as the Spring Boot container, so create network (docker network create "nameofthenetwork) and use --network="nameofthenetwork" as a configuration on both of them.
+4. I exported the database as a SQL dump using MySQL Workbench and then copied it into the MySQL Container. Depending on your application, you might not need to do this.
+5. I built a Spring Boot Container. If using Maven write "mvn clean package" in the backend folder, but before that change the application properties so that the application connects to the MySQL Container instead of localhost. Url should be something like this: jdbc:mysql://"nameofthemysqlcontainer":"port"/"nameofthedatabase". 
+6. I created a Dockerfile in the backend folder. You can see my really simple Dockerfile in the repository :) What it does? It pulls a JDK-image (there are plenty to choose from), then copies my application there, exposes the application in port 8080 and the entrypoint shows that the default command to run when the container starts is to execute a Java JAR file.
+7. I built and ran the Spring Boot Container. In your backend folder (where the Dockerfile is also located), write "docker build -t "nameoftheimage" ."" Remember the dot in the end. I had problems with the Docker unable to find the Dockerfile, so I also added "-f path/to/Dockerfile" as one of the configurations. After building, you can run the container the same way you did the MySQL Container: "docker run (write here your own configurations about the name of the container, port it's using, networks etc).
+8. That's it! You should now have two running containers and you should be able to use your Spring Boot endpoints for accessing the data :)
+9. This is a very simplified guide and may contain mistakes as I'm still trying to learn the secrets of Docker. For more information and guidance, I recommend this page: https://docker-curriculum.com/ and be ready to google a lot!
+
 
