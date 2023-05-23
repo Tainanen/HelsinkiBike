@@ -1,12 +1,10 @@
 package com.taina.backendjava.controllers;
 
-import com.taina.backendjava.entities.PopularStation;
 import com.taina.backendjava.entities.RequestInfo;
 import com.taina.backendjava.entities.SingleStation;
 import com.taina.backendjava.entities.Station;
 import com.taina.backendjava.repositories.StationRepository;
 import com.taina.backendjava.repositories.TripRepository;
-import jakarta.persistence.Tuple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
@@ -17,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,19 +53,19 @@ public class StationController {
         return results;
     }
 
-    @PostMapping
+    @PostMapping(value = "/addStation")
     public Station createStation(@RequestBody Station s) {
         srepo.saveAndFlush(s);
         return s;
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/updateStation/{id}")
     public Station updateStation(@PathVariable int id, @RequestBody Station s) {
         srepo.saveAndFlush(s);
         return s;
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/deleteStation/{id}")
     RequestInfo delete(@PathVariable int id) {
         Station s = srepo.findById(id).orElse(null);
         if (s == null) {
@@ -137,24 +134,4 @@ public class StationController {
         }
     }
     }
-
-
-
-
-
-
-
-
-/*
-
-    @GetMapping("/{Id}/popularReturnStations")
-    public ResponseEntity<List<Station>> getPopularReturnStations(@PathVariable int Id) {
-        List<Station> popularReturnStations = trepo.findPopularReturnStations(Id);
-        if (!popularReturnStations.isEmpty()) {
-            return ResponseEntity.ok(popularReturnStations);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-*/
 

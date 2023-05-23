@@ -66,18 +66,18 @@ public class TripController {
         }
         return results;
     }
-    @PostMapping
+    @PostMapping(value="/addTrip")
     public Trip createTrip(@RequestBody Trip t) {
         trepo.saveAndFlush(t);
         return t;
     }
-    @PutMapping("/{id}")
+    @PutMapping("/updateTrip/{id}")
     public Trip updateTrip (@PathVariable int id, @RequestBody Trip t) {
         trepo.saveAndFlush(t);
         return t;
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/deleteTrip/{id}")
     RequestInfo delete(@PathVariable int id) {
         Trip t = trepo.findById(id).orElse(null);
         if (t == null) {
