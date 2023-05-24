@@ -67,7 +67,7 @@ The frontend of the application is built using React and utilizes React Router f
 
 ### Features
 ***
-these fatures can be found from my application:
+these features can be found from my application:
 1. Journey list view
 * Lists journeys, shows departure and return stations, covered distance in kilometers and duration in minutes
 * Pagination, ordering per column
