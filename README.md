@@ -6,12 +6,13 @@ Photo by Eric Fischer, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, 
 
 ## Table of Contents
 ***
-1. [What does this application do?](#general-info)
+1. [What does this application do?](#what-does-this-application-do)
 2. [Technologies](#technologies)
-3. [Installation](#installation)
+3. [Installation and running the application](#installation-and-running-the-application)
 4. [Database](#database)
 5. [Features](#features)
 6. [Running the whole application in Docker](#running-the-whole-application-in-docker)
+7. [Running the whole application in GCP](#running-the-whole-application-in-gcp)
 
 ### What does this application do?
 ***
@@ -80,7 +81,7 @@ these features can be found from my application:
 4. Endpoints to store new journeys data or new bicycle stations
 * possible to create, update and remove journeys and stations
 5. [Running the whole application in Docker](#running-the-whole-application-in-docker)
-* TODO 6. Running backend in Cloud
+6. [Running the whole application in GCP](#running-the-whole-application-in-gcp)
 * TODO? 7. Create UI for adding journeys or bicycle stations
 
 ### Running the whole application in Docker
@@ -98,4 +99,15 @@ This is how I did it:
 10. That's it! You should now have three running containers and you should be able to see your whole application and use it!
 11. This is a very simplified guide and may contain mistakes as I'm still trying to learn the secrets of Docker. For more information and guidance, I recommend this page: https://docker-curriculum.com/ and be ready to google a lot!
 
-
+### Running the whole application in GCP
+***
+This is how I did it:
+1. You can get a free trial of Google Cloud Platform with your gmail-address. First set up a GCP account here: https://cloud.google.com/. It's also good idea to read about the basics of GCP for example in here: https://cloud.google.com/docs/overview
+2. First I set up a Cloud SQL instance and imported my bike database there. I used the SQL dump I exported from MySQL Workbench while making Docker database. I also set a new user and password for the instance.
+3. Then I changed the backend's application properties to include the cloud-sql-database instance connection name and database name as well as username and password. In my pom.xml I added these dependencies: spring-cloud-gcp-dependencies & spring-cloud-gcp-starter-sql-mysql. If you have @crossorigins set up on some spesific address (I had localhost:3000), you have to change it after you know the url of your frontend service.
+4. Then I made a new Java JAR, built a new backend image and tagged and pushed it into GCP Artifact Registry. I followed these instructions: https://cloud.google.com/artifact-registry/docs/docker/pushing-and-pulling You need to install Google Cloud SDK to be able to push the image into Artifact Registry as you need to authenticate yourself.
+5. After the backend image was in the Artifact Registry, I opened Cloud Run, created new service and used the image I just pushed to the registry. In addition to this, it's important to add the connection to the database - you can do it in the end of creating the service by choosing the database instance you just made in Cloud SQL. Then you deploy your service and after a while you can check the URL and try your endpoints! It's useful to check the logs of the service as well - I had problems with my database configuration, but after understanding what the problem is, it was easy to fix.
+6. For my frontend I made changes to the url's I was using, so no more localhost:8080, but the url of the backend Cloud Run service. 
+7. Then I built the frontend image and tagged and pushed also that one to the Artifact Registry and started a new Cloud Run service using that image. Then you should have 2 services running and also 2 new urls. Notice! If you have @crossorigins set up on some spesific address (I had localhost:3000) in your backend code, you have to change it after you know the url of your frontend service and build a new image, push it to the registry and edit your service.
+8. That's it! Now I can see the application running in the frontend url and I have sent the address to everyone I know so they can see what I have done :D
+9. This is a very simplified guide again and probably includes some mistakes. 
