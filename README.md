@@ -11,6 +11,7 @@ Photo by Eric Fischer, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, 
 3. [Installation](#installation)
 4. [Database](#database)
 5. [Features](#features)
+6. [Running the whole application in Docker](#running-the-whole-application-in-docker)
 
 ### What does this application do?
 ***
@@ -73,7 +74,7 @@ these features can be found from my application:
 * Pagination, ordering per column
 2. Station list
 * Lists all the stations
-* Pagination. searching, links to the single station view
+* Pagination, searching, links to the single station view
 3. Single station view
 * shows station name, station address, total number of journeys starting from the station, total number of journeys ending at the station, the average distance of a journey starting from the station, the average distance of a journey ending at the station, top 5 most popular return stations for journeys starting from the station and top 5 most popular departure stations for journeys ending at the station
 4. Endpoints to store new journeys data or new bicycle stations
