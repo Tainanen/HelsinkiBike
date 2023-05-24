@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './ListTrips.css';
+import API_URL from './config.js';
 
 function ListTrips() {
     const [trips, setTrips] = useState([]);
@@ -10,7 +11,8 @@ function ListTrips() {
 
     const fetchTrips = async () => {
         try {
-            const url = `http://localhost:8080/trips/sort?sortBy=${sortColumn}&sortOrder=${sortOrder}&page=${currentPage}&size=20`;
+            //const url = `http://localhost:8080/trips/sort?sortBy=${sortColumn}&sortOrder=${sortOrder}&page=${currentPage}&size=20`;
+            const url = `${API_URL}/trips/sort?sortBy=${sortColumn}&sortOrder=${sortOrder}&page=${currentPage}&size=20`;
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Network response was not ok');

@@ -18,7 +18,8 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", maxAge = 10600)
+//@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", maxAge = 10600)
+@CrossOrigin(origins = "https://frontend-react-final-z6f6oef7xq-lz.a.run.app", allowedHeaders = "*", maxAge = 10600)
 @RestController
 @RequestMapping("/stations")
 public class StationController {

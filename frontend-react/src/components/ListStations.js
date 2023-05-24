@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ListStations.css';
 import {Link} from "react-router-dom";
+import API_URL from './config.js';
 
 function ListStations() {
     const [stations, setStations] = useState([]);
@@ -11,7 +12,8 @@ function ListStations() {
 
     const fetchStations = async () => {
         try {
-            const url = `http://localhost:8080/stations/search?word=${searchTerm}&page=${currentPage}&size=20`;
+            //const url = `http://localhost:8080/stations/search?word=${searchTerm}&page=${currentPage}&size=20`;
+            const url = `${API_URL}/stations/search?word=${searchTerm}&page=${currentPage}&size=20\`;`
             const response = await fetch(url);
             if (!response.ok) {
                 setNoStationsFound(true);
