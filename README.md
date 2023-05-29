@@ -82,10 +82,11 @@ these features can be found from my application:
 * possible to create, update and remove journeys and stations
 5. [Running the whole application in Docker](#running-the-whole-application-in-docker)
 6. [Running the whole application in GCP](#running-the-whole-application-in-gcp)
-* TODO? 7. Create UI for adding journeys or bicycle stations
 
 ### Running the whole application in Docker
 ***
+![Docker-image](frontend-react/src/images/Screenshot_2023-05-29_120106.png)
+
 This is how I did it:
 1. I got Docker  (https://www.docker.com/products/docker) and installed it.
 2. I started Docker Service (I used Docker Desktop and it needs to be running when building and running containers).
@@ -101,6 +102,8 @@ This is how I did it:
 
 ### Running the whole application in GCP
 ***
+![GCP-image](frontend-react/src/images/GCP_running_application.png)
+
 This is how I did it:
 1. You can get a free trial of Google Cloud Platform with your gmail-address. First set up a GCP account here: https://cloud.google.com/. It's also good idea to read about the basics of GCP for example in here: https://cloud.google.com/docs/overview
 2. First I set up a Cloud SQL instance and imported my bike database there. I used the SQL dump I exported from MySQL Workbench while making Docker database. I also set a new user and password for the instance.
