@@ -16,8 +16,9 @@ function SingleStation() {
 
     const fetchSingleStation = async () => {
         try {
-            // const url = `http://localhost:8080/stations/${id}`;
-            const url = `${API_URL}/stations/${id}`;
+            const url = `http://localhost:8080/stations/${id}`;
+            //This is the URL for the cloud configuration
+            //const url = `${API_URL}/stations/${id}`;
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -31,8 +32,9 @@ function SingleStation() {
     };
     const fetchAverageDistanceDeparture = async () => {
         try {
-        //    const url = `http://localhost:8080/stations/${id}/averageDistanceDeparture`;
-            const url = `${API_URL}/stations/${id}/averageDistanceDeparture`;
+            const url = `http://localhost:8080/stations/${id}/averageDistanceDeparture`;
+            //This it the url for cloud configuration
+            //const url = `${API_URL}/stations/${id}/averageDistanceDeparture`;
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -47,8 +49,9 @@ function SingleStation() {
 
     const fetchAverageDistanceReturn = async () => {
         try {
-        //    const url = `http://localhost:8080/stations/${id}/averageDistanceReturn`;
-            const url = `${API_URL}/stations/${id}/averageDistanceReturn`;
+            const url = `http://localhost:8080/stations/${id}/averageDistanceReturn`;
+            //This is the url for the cloud configuration
+            //const url = `${API_URL}/stations/${id}/averageDistanceReturn`;
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -62,8 +65,9 @@ function SingleStation() {
     };
     const fetchPopularReturnStations = async () => {
         try {
-        //    const url = `http://localhost:8080/stations/${id}/popularReturnStations`;
-            const url = `${API_URL}/stations/${id}/popularReturnStations`;
+            const url = `http://localhost:8080/stations/${id}/popularReturnStations`;
+            //This is the url for the cloud configuration
+            //const url = `${API_URL}/stations/${id}/popularReturnStations`;
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -80,8 +84,9 @@ function SingleStation() {
     };
     const fetchPopularDepartureStations = async () => {
         try {
-        //    const url = `http://localhost:8080/stations/${id}/popularDepartureStations`;
-            const url = `${API_URL}/stations/${id}/popularDepartureStations`;
+            const url = `http://localhost:8080/stations/${id}/popularDepartureStations`;
+            //This is the url for the cloud configuration
+            //const url = `${API_URL}/stations/${id}/popularDepartureStations`;
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Network response was not ok');

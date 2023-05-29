@@ -1,5 +1,6 @@
 package com.taina.backendjava.entities;
 
+
 public class SingleStation {
 
     private String nameFin;
@@ -14,7 +15,10 @@ public class SingleStation {
         this.returnCount = returnCount;
     }
 
-
+    public SingleStation(String nameFin, String addressFin) {
+        this.nameFin=nameFin;
+        this.addressFin=addressFin;
+    }
 
 
     public String getNameFin () {

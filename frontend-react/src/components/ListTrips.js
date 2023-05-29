@@ -11,8 +11,9 @@ function ListTrips() {
 
     const fetchTrips = async () => {
         try {
-            //const url = `http://localhost:8080/trips/sort?sortBy=${sortColumn}&sortOrder=${sortOrder}&page=${currentPage}&size=20`;
-            const url = `${API_URL}/trips/sort?sortBy=${sortColumn}&sortOrder=${sortOrder}&page=${currentPage}&size=20`;
+            const url = `http://localhost:8080/trips/sort?sortBy=${sortColumn}&sortOrder=${sortOrder}&page=${currentPage}&size=20`;
+            //This is the URL for the cloud configuration
+            //const url = `${API_URL}/trips/sort?sortBy=${sortColumn}&sortOrder=${sortOrder}&page=${currentPage}&size=20`;
             const response = await fetch(url);
             if (!response.ok) {
                 throw new Error('Network response was not ok');

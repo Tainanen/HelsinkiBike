@@ -18,8 +18,9 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-//@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", maxAge = 10600)
-@CrossOrigin(origins = "https://frontend-react-final-z6f6oef7xq-lz.a.run.app", allowedHeaders = "*", maxAge = 10600)
+@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", maxAge = 10600)
+//This allows the frontend to connect to the backend in the cloud
+//@CrossOrigin(origins = "https://frontend-react-final-z6f6oef7xq-lz.a.run.app", allowedHeaders = "*", maxAge = 10600)
 @RestController
 @RequestMapping("/stations")
 public class StationController {
@@ -34,7 +35,7 @@ public class StationController {
     }
 
     @GetMapping(value = "{id}")
-    public SingleStation getStationById(@PathVariable("id") int id) {
+    public SingleStation getSingleStationById(@PathVariable("id") int id) {
         Station s = srepo.findById(id).orElse(null);
         if (s == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found");
@@ -44,6 +45,15 @@ public class StationController {
                 trepo.returnTripCount(s.getId()));
         return st;
     }
+    @GetMapping(value = "/allInfo/{id}")
+    public Station getStationById(@PathVariable("id") int id) {
+        Station station = srepo.findById(id).orElse(null);
+        if (station == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found");
+        }
+        return station;
+    }
+
 
     @GetMapping(value = "/search")
     public Page<Station> searchStationByName(@RequestParam String word, Pageable pageable) {
