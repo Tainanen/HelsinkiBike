@@ -124,5 +124,6 @@ This was my first ever application made by myself and I'm proud of it! It took l
 
 ##### I'd still like to learn more about:
 * Testing - now my tiny Mockito-tests are the just the most simple tests there are. I have plenty to learn on this field. 
-* Frontend - this is my first time doing something with React and I can say I learned a lot about the structure and basic functions, but the webpage does not have all the functionality (and nice looks) that there should be. 
+* Frontend - this is my first time doing something with React and I can say I learned a lot about the structure and basic functions, but the webpage does not have all the functionality (and nice looks) that there should be.
 * Databases - MySQL is the most familiar for me, but I'd like to try for example MongoDB in a similar exercise. I'd also like to learn more about planning and designing an excellent database. 
+* Mobile version - I have no idea (yet), how to make this application work in mobile environment, but that's something I'd like to learn.
