@@ -16,7 +16,7 @@ Photo by Eric Fischer, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, 
 
 ### What does this application do?
 ***
-This Helsinki City Bike application is based on the data of the Helsinki City Bike trips and stations on summer 2021. Users and list, sort and search for the trips and stations as well as find detailed information about the stations. For example it's possible to find out, which was the longest trip made or the most popular station in the summer 2021 :)
+This Helsinki City Bike application is based on the data of the Helsinki City Bike trips and stations on summer 2021. Users and list, sort and search for the trips and stations as well as find detailed information about the stations. For example it's possible to find out, which was the longest trip made or the most popular station in the summer 2021 :) This is Solita's pre-assignment exercise 2023.
 
 ### Technologies
 ***
@@ -30,6 +30,8 @@ A list of technologies used within the project:
 * [Node.js](https://nodejs.org/): Version 18.14.1
 * [TablePlus](https://tableplus.com/): For importing big csv.files and mapping them correctly
 * [Insomnia](https://insomnia.rest/): For testing and interacting with backend endpoints and validating API functionality.
+* [Docker](https://docker.com): For packaging and running the application in containers.
+* [GCP](https://console.cloud.google.com/): For building and deploying the application on the cloud.
 
 This application was made on Windows 11.
 The backend of the application is built using Spring Boot, a Java-based framework, with JDK 17. It utilizes MySQL as the database for data storage.
@@ -65,7 +67,7 @@ The frontend of the application is built using React and utilizes React Router f
 * DELETE FROM trips WHERE duration_s is < 10;
 * DELETE FROM from trips WHERE id IN (SELECT id FROM trips GROUP BY departure, `return`, departure_station_id, departure_station_name, return_station_id, return_station_name, distance_m, duration_s HAVING COUNT(*) > 1);
 * UPDATE stations SET city_fin = "Helsinki" WHERE city_fin is null;
-* UPDATE stations SET city_swe = "Helsingfors" WWHERE city_swe is null;
+* UPDATE stations SET city_swe = "Helsingfors" WHERE city_swe is null;
 
 ### Features
 ***
