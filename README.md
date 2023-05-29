@@ -90,17 +90,17 @@ these features can be found from my application:
 ***
 ![Docker-image](frontend-react/src/images/Screenshot_2023-05-29_120106.png)
 
-This is how I did it:
-1. I got Docker  (https://www.docker.com/products/docker) and installed it.
+This is how I did it (does not include spesific intructions):
+1. I downloaded Docker  (https://www.docker.com/products/docker) and installed it.
 2. I started Docker Service (I used Docker Desktop and it needs to be running when building and running containers).
-3. For the database, I created MySQL Docker Container by pulling the latest MySQL Docker image and running it ("docker pull mysql:latest" and "docker run (write here your own configurations about the name of the container, port it's using, networks, tags etc)" !Remember! The MySQL container needs to be located in the same network as the Spring Boot container, so create network (docker network create "nameofthenetwork) and use --network="nameofthenetwork" as a configuration on both of them.
-4. I exported the database as a SQL dump using MySQL Workbench and then copied it into the MySQL Container. Depending on your application, you might not need to do this.
-5. I packaged my backend Spring Boot application. If using Maven write "mvn clean package" in the backend folder, but before that change the application properties so that the application connects to the MySQL Container instead of localhost. Url should be something like this: jdbc:mysql://"nameofthemysqlcontainer":"port"/"nameofthedatabase". 
-6. I created a Dockerfile in the backend folder. You can see my really simple Dockerfile in the repository :) What it does? It pulls a JDK-image (there are plenty to choose from), then copies my application there, exposes the application in port 8080 and the entrypoint shows that the default command to run when the container starts is to execute a Java JAR file.
+3. For the database, I created MySQL Docker Container by pulling the latest MySQL Docker image and running it.
+4. I exported the database as a SQL dump using MySQL Workbench and then copied it into the MySQL Container. 
+5. I packaged my backend Spring Boot application with Maven.
+6. I created a Dockerfile in the backend folder and copied the application and defined the image, application port and entrypoint.
 7. I created a Dockerfile in the frontend folder the same way I did with the backend Dockerfile, only using different image, application port and entrypoint.
-8. I built and ran the Spring Boot Container. In your backend folder (where the Dockerfile is also located), write "docker build -t "nameoftheimage" ."" Remember the dot in the end. After building, you can run the container the same way you did the MySQL Container: "docker run (write here your own configurations about the name of the container, port it's using, networks etc).
-9. I built and ran the frontend React Container. Follow the previous advise but do everything in your frontend folder.
-10. That's it! You should now have three running containers and you should be able to see your whole application and use it!
+8. I built and ran the Spring Boot Container. 
+9. I built and ran the frontend React Container. 
+10. That's it! 
 11. This is a very simplified guide and may contain mistakes as I'm still trying to learn the secrets of Docker. For more information and guidance, I recommend this page: https://docker-curriculum.com/ and be ready to google a lot!
 
 ### Running the whole application in GCP
