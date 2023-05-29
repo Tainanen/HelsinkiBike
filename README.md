@@ -115,12 +115,13 @@ This is how I did it:
 5. After the backend image was in the Artifact Registry, I opened Cloud Run, created new service and used the image I just pushed to the registry. In addition to this, it's important to add the connection to the database - you can do it in the end of creating the service by choosing the database instance you just made in Cloud SQL. Then you deploy your service and after a while you can check the URL and try your endpoints! It's useful to check the logs of the service as well - I had problems with my database configuration, but after understanding what the problem is, it was easy to fix.
 6. For my frontend I made changes to the url's I was using, so no more localhost:8080, but the url of the backend Cloud Run service. 
 7. Then I built the frontend image and tagged and pushed also that one to the Artifact Registry and started a new Cloud Run service using that image. Then you should have 2 services running and also 2 new urls. Notice! If you have @crossorigins set up on some spesific address (I had localhost:3000) in your backend code, you have to change it after you know the url of your frontend service and build a new image, push it to the registry and edit your service.
-8. That's it! Now I can see the application running in the frontend url and I have sent the address to everyone I know so they can see what I have done :D
+8. That's it! Now I can see the application running in the frontend url and I have sent the address to everyone I know so they can see what I have done :)
 9. This is a very simplified guide again and probably includes some mistakes. 
 
 ### Reflections and what next?
 ***
 This was my first ever application made by myself and I'm proud of it! It took less than 3 weeks to complete and all the main functionalities work. I'm also happy that I was able to dockerize the whole application as well as deploy it on the cloud. Next time I'd spend more time thinking about the structure of the application and yes, using term "trip" instead of "journey" was a stupid mistake, which I noticed too late. It would also be interesting to use Java instead of MySQL Workbench to programmatically define the table structure and read the data files for the database. If I'd had more time, I'd added webpages for creating, updating and deleting the stations and journeys - the endpoints are ready :)
+
 ##### I'd still like to learn more about:
 * Testing - now my tiny Mockito-tests are the just the most simple tests there are. I have plenty to learn on this field. 
 * Frontend - this is my first time doing something with React and I can say I learned a lot about the structure and basic functions, but the webpage does not have all the functionality (and nice looks) that there should be. 
