@@ -13,6 +13,7 @@ Photo by Eric Fischer, CC BY 2.0 <https://creativecommons.org/licenses/by/2.0>, 
 5. [Features](#features)
 6. [Running the whole application in Docker](#running-the-whole-application-in-docker)
 7. [Running the whole application in GCP](#running-the-whole-application-in-gcp)
+8. [Reflections and what next?](#reflections-and-what-next)
 
 ### What does this application do?
 ***
@@ -116,3 +117,11 @@ This is how I did it:
 7. Then I built the frontend image and tagged and pushed also that one to the Artifact Registry and started a new Cloud Run service using that image. Then you should have 2 services running and also 2 new urls. Notice! If you have @crossorigins set up on some spesific address (I had localhost:3000) in your backend code, you have to change it after you know the url of your frontend service and build a new image, push it to the registry and edit your service.
 8. That's it! Now I can see the application running in the frontend url and I have sent the address to everyone I know so they can see what I have done :D
 9. This is a very simplified guide again and probably includes some mistakes. 
+
+### Reflections and what next?
+***
+This was my first ever application made by myself and I'm proud of it! It took less than 3 weeks to complete and all the main functionalities work. I'm also happy that I was able to dockerize the whole application as well as deploy it on the cloud. Next time I'd spend more time thinking about the structure of the application and yes, using term "trip" instead of "journey" was a stupid mistake, which I noticed too late. It would also be interesting to use Java instead of MySQL Workbench to programmatically define the table structure and read the data files for the database. If I'd had more time, I'd added webpages for creating, updating and deleting the stations and journeys - the endpoints are ready :)
+##### I'd still like to learn more about:
+* Testing - now my tiny Mockito-tests are the just the most simple tests there are. I have plenty to learn on this field. 
+* Frontend - this is my first time doing something with React and I can say I learned a lot about the structure and basic functions, but the webpage does not have all the functionality (and nice looks) that there should be. 
+* Databases - MySQL is the most familiar for me, but I'd like to try for example MongoDB in a similar exercise. I'd also like to learn more about planning and designing an excellent database. 
