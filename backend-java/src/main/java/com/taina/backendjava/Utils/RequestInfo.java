@@ -1,4 +1,4 @@
-package com.taina.backendjava.entities;
+package com.taina.backendjava.Utils;
 
 public class RequestInfo {
 

@@ -1,8 +1,9 @@
 package com.taina.backendjava.controllers;
 
 import com.taina.backendjava.DTOs.StationDTO;
-import com.taina.backendjava.entities.RequestInfo;
 import com.taina.backendjava.entities.Station;
+import com.taina.backendjava.Services.StationService;
+import com.taina.backendjava.Utils.RequestInfo;
 import com.taina.backendjava.repositories.StationRepository;
 import com.taina.backendjava.repositories.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,27 +25,22 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/stations")
 public class StationController {
+    private StationService stationService;
     private StationRepository srepo;
     private TripRepository trepo;
 
     @Autowired
-    StationController(StationRepository srepo, TripRepository trepo) {
+    StationController(StationRepository srepo, TripRepository trepo, StationService stationService) {
 
         this.srepo = srepo;
         this.trepo = trepo;
+        this.stationService=stationService;
     }
-
     @GetMapping(value = "{id}")
     public StationDTO getSingleStationById(@PathVariable("id") int id) {
-        Station s = srepo.findById(id).orElse(null);
-        if (s == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found");
+            return stationService.getStationById(id);
         }
-        StationDTO st = new StationDTO (s.getNameFin(), s.getAddressFin(),
-                trepo.departureTripCount(s.getId()),
-                trepo.returnTripCount(s.getId()));
-        return st;
-    }
+
     @GetMapping(value = "/allInfo/{id}")
     public Station getStationById(@PathVariable("id") int id) {
         Station station = srepo.findById(id).orElse(null);

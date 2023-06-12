@@ -1,7 +1,6 @@
 package com.taina.backendjava.controllers;
 
 
-import com.taina.backendjava.entities.RequestInfo;
 import com.taina.backendjava.entities.Trip;
 import com.taina.backendjava.repositories.StationRepository;
 import com.taina.backendjava.repositories.TripRepository;
