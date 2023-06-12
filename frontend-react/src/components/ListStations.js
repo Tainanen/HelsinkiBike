@@ -66,6 +66,9 @@ function ListStations() {
                 <label htmlFor="search">Search by station name:</label>
                 <input type="text" id="search" value={searchTerm} onChange={handleSearch} />
             </div>
+            <Link to="/stationsSwe">
+                <button>Click here for the information in Swedish</button>
+            </Link>
             {noStationsFound ? (
                 <p>There are no stations with that name.</p>
             ) : (
@@ -99,7 +102,7 @@ function ListStations() {
                     <span>Page {currentPage + 1} of {totalPages}</span>
             <button onClick={handleNextPage}>Next page</button>
                     {/* Button to Swedish version */}
-                    <Link to="/listStationsSwe">
+                    <Link to="/stationsSwe">
                         <button>Same in Swedish</button>
                     </Link>
                 </>

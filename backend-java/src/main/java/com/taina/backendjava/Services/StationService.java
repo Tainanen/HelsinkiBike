@@ -33,15 +33,6 @@ public class StationService {
                 trepo.returnTripCount(s.getId())
         );
     }
-    public static StationFinDTO mapToStationFinDTO(Station station) {
-        return new StationFinDTO(
-                station.getId(),
-                station.getNameFin(),
-                station.getAddressFin(),
-                station.getCityFin(),
-                station.getCapacity()
-        );
-    }
     }
 
 

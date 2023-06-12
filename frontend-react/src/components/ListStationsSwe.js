@@ -24,21 +24,19 @@ function ListStationsSwe() {
             setNoStationsFound(false);
             console.log(data);
             const stationsArray = data.content.map((station) => ({
-                id: station[0],
-                nameSwe: station[2],
-                addressSwe: station[5],
-                citySwe: station[7],
-                'operator': station[8],
-                capacity: station[9],
-                x: station[10],
-                y: station[11]
+                id: station.id,
+                nameSwe: station.nameSwe,
+                addressSwe: station.addressSwe,
+                citySwe: station.citySwe,
+                capacity: station.capacity,
+
             }));
             console.log('Stations:', stationsArray);
             setStations(stationsArray);
             setTotalPages(data.totalPages);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } catch (error) {
-            console.error(`Error fetching trips: ${error}`);
+            console.error(`Error fetching stations: ${error}`);
         }
     };
 
@@ -80,10 +78,7 @@ function ListStationsSwe() {
                             <th>Name of the station in Swedish</th>
                             <th>Address in Swedish</th>
                             <th>City in Swedish</th>
-                            <th>Operator</th>
                             <th>Capacity</th>
-                            <th>Longitude</th>
-                            <th>Latitude</th>
                         </tr>
 
                         </thead>
@@ -96,10 +91,7 @@ function ListStationsSwe() {
                                 </Link>
                                 <td>{station.addressSwe}</td>
                                 <td>{station.citySwe}</td>
-                                <td>{station.operator}</td>
                                 <td>{station.capacity}</td>
-                                <td>{(station.x).toFixed(5)}</td>
-                                <td>{(station.y).toFixed(5)}</td>
                             </tr>
                         ))}
                         </tbody>

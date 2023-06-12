@@ -4,6 +4,7 @@ import ListStations from './components/ListStations.js';
 import Home from './components/Home.js'
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import SingleStation from "./components/SingleStation.js";
+import ListStationsSwe from "./components/ListStationsSwe.js";
 
 function App() {
     return (
@@ -24,6 +25,7 @@ function App() {
                     <Routes>
                         <Route path="/trips" element={<ListTrips />} />
                         <Route path="/stations" element={<ListStations />} />
+                        <Route path="/stationsSwe" element={<ListStationsSwe/>} />
                         <Route path="/" element={<Home />} />
                         <Route path="/singlestation/:id" element={<SingleStation />} />
                     </Routes>

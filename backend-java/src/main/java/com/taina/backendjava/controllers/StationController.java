@@ -66,11 +66,11 @@ public class StationController {
         if (results.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No stations found");
         }
-        List<StationFinDTO> dtos = results.getContent();
+        List<StationFinDTO> dtofi = results.getContent();
 
-        Page<StationFinDTO> dtoPage = new PageImpl<>(dtos, pageable, results.getTotalElements());
+        Page<StationFinDTO> dtoPage = new PageImpl<>(dtofi, pageable, results.getTotalElements());
 
-        return ResponseEntity.ok(dtoPage);
+        return createResponseEntity(dtoPage);
     }
 
 
@@ -80,9 +80,12 @@ public class StationController {
         if (results.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No stations found");
         }
-        return createResponseEntity(results);
-    }
+            List<StationSweDTO> dtoswe = results.getContent();
 
+            Page<StationSweDTO> dtoPage = new PageImpl<>(dtoswe, pageable, results.getTotalElements());
+
+            return createResponseEntity(dtoPage);
+        }
 
     @PostMapping(value = "/addStation")
     public ResponseEntity<Station> createStation(@RequestBody Station s) {

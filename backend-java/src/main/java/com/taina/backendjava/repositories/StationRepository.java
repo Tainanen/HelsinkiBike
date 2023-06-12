@@ -17,7 +17,7 @@ public interface StationRepository extends JpaRepository<Station, Integer>, Pagi
 //    @Query("SELECT s.id, s.nameFin, s.addressFin, s.cityFin, s.operator, s.capacity, s.x, s.y from Station s WHERE s.nameFin LIKE %:word% ")
     Page<StationFinDTO> searchStationByName(@Param("word") String word, Pageable pageable);
 
-    @Query("SELECT s.id, s.nameSwe, s.addressSwe, s.citySwe, s.capacity from Station s WHERE s.nameSwe LIKE %:word%")
+    @Query("SELECT new com.taina.backendjava.DTOs.StationSweDTO(s.id, s.nameSwe, s.addressSwe, s.citySwe, s.capacity) from Station s WHERE s.nameSwe LIKE %:word%")
     Page<StationSweDTO> searchStationByNameSwe(@Param("word") String word, Pageable pageable);
 
     @Query("SELECT t.departureStationName, COUNT(t) FROM Trip t WHERE t.returnStationId = :Id GROUP BY t.departureStationName ORDER BY COUNT(t) DESC")
