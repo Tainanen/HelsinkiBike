@@ -1,13 +1,12 @@
 package com.taina.backendjava.controllers;
 
-import com.taina.backendjava.DTOs.StationDTO;
+import com.taina.backendjava.DTOs.StationViewDTO;
 import com.taina.backendjava.entities.Station;
 import com.taina.backendjava.Services.StationService;
 import com.taina.backendjava.Utils.RequestInfo;
 import com.taina.backendjava.repositories.StationRepository;
 import com.taina.backendjava.repositories.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.taina.backendjava.Utils.ResponseEntityUtils.createResponseEntity;
 
 @CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*", maxAge = 10600)
 //This allows the frontend to connect to the backend in the cloud
@@ -34,111 +36,94 @@ public class StationController {
 
         this.srepo = srepo;
         this.trepo = trepo;
-        this.stationService=stationService;
+        this.stationService = stationService;
     }
+
     @GetMapping(value = "{id}")
-    public StationDTO getSingleStationById(@PathVariable("id") int id) {
-            return stationService.getStationById(id);
+    public ResponseEntity<StationViewDTO> getSingleStationById(@PathVariable("id") int id) {
+        StationViewDTO station = stationService.getStationById(id);
+        if (station == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found");
         }
+        return createResponseEntity(station);
+    }
 
     @GetMapping(value = "/allInfo/{id}")
-    public Station getStationById(@PathVariable("id") int id) {
+    public ResponseEntity<Station> getStationById(@PathVariable("id") int id) {
         Station station = srepo.findById(id).orElse(null);
         if (station == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found");
         }
-        return station;
+        return createResponseEntity(station);
     }
 
-
     @GetMapping(value = "/search")
-    public Page<Station> searchStationByName(@RequestParam String word, Pageable pageable) {
+    public ResponseEntity<Page<Station>> searchStationByName(@RequestParam String word, Pageable pageable) {
         Page<Station> results = srepo.searchStationByName(word, pageable);
         if (results.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No stations found");
         }
-        return results;
+        return createResponseEntity(results);
     }
 
+
     @PostMapping(value = "/addStation")
-    public Station createStation(@RequestBody Station s) {
+    public ResponseEntity<Station> createStation(@RequestBody Station s) {
         srepo.saveAndFlush(s);
-        return s;
+        return createResponseEntity(s);
     }
 
     @PutMapping("/updateStation/{id}")
-    public Station updateStation(@PathVariable int id, @RequestBody Station s) {
+    public ResponseEntity<Station> updateStation(@PathVariable int id, @RequestBody Station s) {
         srepo.saveAndFlush(s);
-        return s;
+        return createResponseEntity(s);
     }
 
     @DeleteMapping("/deleteStation/{id}")
-    RequestInfo delete(@PathVariable int id) {
-        Station s = srepo.findById(id).orElse(null);
-        if (s == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found");
+    public ResponseEntity<RequestInfo> deleteStation(@PathVariable int id) {
+        Optional<Station> optionalStation = srepo.findById(id);
+        if (optionalStation.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Station not found");
         }
         srepo.deleteById(id);
-        return new RequestInfo("Station with ID " + id + " has been deleted");
+        RequestInfo requestInfo = new RequestInfo("Station with ID " + id + " has been deleted");
+        return createResponseEntity(requestInfo);
     }
 
     @GetMapping("/{Id}/averageDistanceDeparture")
     public ResponseEntity<Double> getAverageDistanceDeparture(@PathVariable int Id) {
         Double averageDistance = trepo.findAverageDistanceByDepartureStationId(Id);
-        if (averageDistance != null) {
-            return ResponseEntity.ok(averageDistance);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return createResponseEntity(averageDistance);
     }
 
     @GetMapping("/{Id}/averageDistanceReturn")
     public ResponseEntity<Double> getAverageDistanceReturn(@PathVariable int Id) {
         Double averageDistance = trepo.findAverageDistanceByReturnStationId(Id);
-        if (averageDistance != null) {
-            return ResponseEntity.ok(averageDistance);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return createResponseEntity(averageDistance);
     }
-
 
     @GetMapping("/{Id}/popularReturnStations")
     public ResponseEntity<List<Object[]>> getPopularReturnStations(@PathVariable int Id) {
-        try {
             Pageable pageable = PageRequest.of(0, 5);
             List<Object[]> result = srepo.findPopularReturnStations(Id, pageable);
-            if (result.isEmpty()) {
-                return ResponseEntity.notFound().build();
-            }
 
             List<Object[]> popularStations = result.stream()
                     .map(row -> new Object[]{row[0], row[1]})
                     .collect(Collectors.toList());
 
-            return ResponseEntity.ok(popularStations);
-        } catch (EmptyResultDataAccessException e) {
-            return ResponseEntity.notFound().build();
+            return createResponseEntity(popularStations);
         }
-    }
 
     @GetMapping("/{Id}/popularDepartureStations")
     public ResponseEntity<List<Object[]>> getPopularDepartureStations(@PathVariable int Id) {
-        try {
             Pageable pageable = PageRequest.of(0, 5);
             List<Object[]> result = srepo.findPopularDepartureStations(Id, pageable);
-            if (result.isEmpty()) {
-                return ResponseEntity.notFound().build(); // or return a custom response
-            }
 
             List<Object[]> popularStations = result.stream()
                     .map(row -> new Object[]{row[0], row[1]})
                     .collect(Collectors.toList());
 
-            return ResponseEntity.ok(popularStations);
-        } catch (EmptyResultDataAccessException e) {
-            return ResponseEntity.notFound().build();
-        }
+            return createResponseEntity(popularStations);
     }
     }
 

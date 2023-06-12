@@ -1,20 +1,20 @@
 package com.taina.backendjava.DTOs;
 
-public class StationDTO {
+public class StationViewDTO {
 
         private String nameFin;
         private String addressFin;
         private int departureCount;
         private int returnCount;
 
-        public StationDTO(String nameFin, String addressFin, int departureCount, int returnCount) {
+        public StationViewDTO(String nameFin, String addressFin, int departureCount, int returnCount) {
             this.nameFin = nameFin;
             this.addressFin = addressFin;
             this.departureCount = departureCount;
             this.returnCount = returnCount;
         }
 
-        public StationDTO(String nameFin, String addressFin) {
+        public StationViewDTO(String nameFin, String addressFin) {
             this.nameFin=nameFin;
             this.addressFin=addressFin;
         }
