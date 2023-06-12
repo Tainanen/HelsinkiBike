@@ -2,26 +2,24 @@ package com.taina.backendjava.entities;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 @Table(name="stations")
 public class Station {
     @Id
     private int id;
-    @Column(name="name_fin")
+    @Column(name = "name_fin")
     private String nameFin;
-    @Column(name="name_swe")
+    @Column(name = "name_swe")
     private String nameSwe;
-    @Column(name="name_en")
+    @Column(name = "name_en")
     private String nameEn;
-    @Column(name="address_fin")
+    @Column(name = "address_fin")
     private String addressFin;
-    @Column(name="address_swe")
+    @Column(name = "address_swe")
     private String addressSwe;
-    @Column(name="city_fin")
+    @Column(name = "city_fin")
     private String cityFin;
-    @Column(name="city_swe")
+    @Column(name = "city_swe")
     private String citySwe;
 
     private String operator;
@@ -122,6 +120,11 @@ public class Station {
         return x;
     }
 
+    public void setX(double x) {
+        this.x = x;
+    }
+
+
     @Override
     public String toString() {
         return "Station{" +
@@ -138,12 +141,6 @@ public class Station {
                 ", y=" + y +
                 ", x=" + x +
                 '}';
-    }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
-    public void setTripCount(int tripCount) {
     }
 }

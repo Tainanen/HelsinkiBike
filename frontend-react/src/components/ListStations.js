@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ListStations.css';
 import {Link} from "react-router-dom";
-import API_URL from './config.js';
+// import API_URL from './config.js';
 
 function ListStations() {
     const [stations, setStations] = useState([]);

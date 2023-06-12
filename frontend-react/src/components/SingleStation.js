@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './SingleStation.css';
 import { useParams } from 'react-router-dom';
-import API_URL from './config.js';
+//import API_URL from './config.js';
 
 
 function SingleStation() {
@@ -112,7 +112,7 @@ function SingleStation() {
 
     return (
         <div>
-            <h1>The station</h1>
+            <h1>The single station view</h1>
             {station && (
                 <table className = "station-details">
                     <thead>

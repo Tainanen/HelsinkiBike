@@ -1,8 +1,6 @@
 package com.taina.backendjava.repositories;
 
 import com.taina.backendjava.entities.Station;
-import com.taina.backendjava.entities.SingleStation;
-import jakarta.persistence.Tuple;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

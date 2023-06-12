@@ -1,7 +1,7 @@
 package com.taina.backendjava.controllers;
 
+import com.taina.backendjava.DTOs.StationDTO;
 import com.taina.backendjava.entities.RequestInfo;
-import com.taina.backendjava.entities.SingleStation;
 import com.taina.backendjava.entities.Station;
 import com.taina.backendjava.repositories.StationRepository;
 import com.taina.backendjava.repositories.TripRepository;
@@ -35,12 +35,12 @@ public class StationController {
     }
 
     @GetMapping(value = "{id}")
-    public SingleStation getSingleStationById(@PathVariable("id") int id) {
+    public StationDTO getSingleStationById(@PathVariable("id") int id) {
         Station s = srepo.findById(id).orElse(null);
         if (s == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Not found");
         }
-        SingleStation st = new SingleStation(s.getNameFin(), s.getAddressFin(),
+        StationDTO st = new StationDTO (s.getNameFin(), s.getAddressFin(),
                 trepo.departureTripCount(s.getId()),
                 trepo.returnTripCount(s.getId()));
         return st;

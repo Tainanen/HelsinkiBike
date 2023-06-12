@@ -1,27 +1,26 @@
-package com.taina.backendjava.entities;
+package com.taina.backendjava.DTOs;
+
+public class StationDTO {
+
+        private String nameFin;
+        private String addressFin;
+        private int departureCount;
+        private int returnCount;
+
+        public StationDTO(String nameFin, String addressFin, int departureCount, int returnCount) {
+            this.nameFin = nameFin;
+            this.addressFin = addressFin;
+            this.departureCount = departureCount;
+            this.returnCount = returnCount;
+        }
+
+        public StationDTO(String nameFin, String addressFin) {
+            this.nameFin=nameFin;
+            this.addressFin=addressFin;
+        }
 
 
-public class SingleStation {
-
-    private String nameFin;
-    private String addressFin;
-    private int departureCount;
-    private int returnCount;
-
-    public SingleStation(String nameFin, String addressFin, int departureCount, int returnCount) {
-        this.nameFin = nameFin;
-        this.addressFin = addressFin;
-        this.departureCount = departureCount;
-        this.returnCount = returnCount;
-    }
-
-    public SingleStation(String nameFin, String addressFin) {
-        this.nameFin=nameFin;
-        this.addressFin=addressFin;
-    }
-
-
-    public String getNameFin () {
+        public String getNameFin () {
             return nameFin;
         }
 
