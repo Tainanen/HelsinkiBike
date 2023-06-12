@@ -101,10 +101,6 @@ function ListStations() {
             <button onClick={handlePreviousPage}>Previous page</button>
                     <span>Page {currentPage + 1} of {totalPages}</span>
             <button onClick={handleNextPage}>Next page</button>
-                    {/* Button to Swedish version */}
-                    <Link to="/stationsSwe">
-                        <button>Same in Swedish</button>
-                    </Link>
                 </>
             )}
         </div>
