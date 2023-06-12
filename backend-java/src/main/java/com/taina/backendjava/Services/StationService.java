@@ -1,5 +1,6 @@
 package com.taina.backendjava.Services;
 
+import com.taina.backendjava.DTOs.StationFinDTO;
 import com.taina.backendjava.DTOs.StationViewDTO;
 import com.taina.backendjava.entities.Station;
 import com.taina.backendjava.repositories.StationRepository;
@@ -32,5 +33,16 @@ public class StationService {
                 trepo.returnTripCount(s.getId())
         );
     }
+    public static StationFinDTO mapToStationFinDTO(Station station) {
+        return new StationFinDTO(
+                station.getId(),
+                station.getNameFin(),
+                station.getAddressFin(),
+                station.getCityFin(),
+                station.getCapacity()
+        );
+    }
+    }
 
-}
+
+

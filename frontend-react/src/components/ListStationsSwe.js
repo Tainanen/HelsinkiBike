@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import './ListStations.css';
+import './ListStationsSwe.css';
 import {Link} from "react-router-dom";
 // import API_URL from './config.js';
 
-function ListStations() {
+function ListStationsSwe() {
     const [stations, setStations] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [searchTerm, setSearchTerm] = useState('');
@@ -12,7 +12,7 @@ function ListStations() {
 
     const fetchStations = async () => {
         try {
-            const url = `http://localhost:8080/stations/search?word=${searchTerm}&page=${currentPage}&size=20`;
+            const url = `http://localhost:8080/stations/searchSwe?word=${searchTerm}&page=${currentPage}&size=20`;
             //This is the URL for the cloud configuration:
             //const url = `${API_URL}/stations/search?word=${searchTerm}&page=${currentPage}&size=20\`;`
             const response = await fetch(url);
@@ -24,18 +24,21 @@ function ListStations() {
             setNoStationsFound(false);
             console.log(data);
             const stationsArray = data.content.map((station) => ({
-                id: station.id,
-                nameFin: station.nameFin,
-                addressFin: station.addressFin,
-                cityFin: station.cityFin,
-                capacity: station.capacity,
+                id: station[0],
+                nameSwe: station[2],
+                addressSwe: station[5],
+                citySwe: station[7],
+                'operator': station[8],
+                capacity: station[9],
+                x: station[10],
+                y: station[11]
             }));
             console.log('Stations:', stationsArray);
             setStations(stationsArray);
             setTotalPages(data.totalPages);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } catch (error) {
-            console.error(`Error fetching stations: ${error}`);
+            console.error(`Error fetching trips: ${error}`);
         }
     };
 
@@ -70,42 +73,44 @@ function ListStations() {
                 <p>There are no stations with that name.</p>
             ) : (
                 <>
-            <table>
-                <thead>
-                <tr>
-                    <th>Id of the station</th>
-                    <th>Name of the station in Finnish</th>
-                    <th>Address in Finnish</th>
-                    <th>City in Finnish</th>
-                    <th>Capacity</th>
-                </tr>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Id of the station</th>
+                            <th>Name of the station in Swedish</th>
+                            <th>Address in Swedish</th>
+                            <th>City in Swedish</th>
+                            <th>Operator</th>
+                            <th>Capacity</th>
+                            <th>Longitude</th>
+                            <th>Latitude</th>
+                        </tr>
 
-                </thead>
-                <tbody>
-                {stations.map((station) => (
-                    <tr key={station.id}>
-                        <td>{station.id}</td>
-                        <Link to={`/singlestation/${station.id}`}>
-                            {station.nameFin}
-                        </Link>
-                        <td>{station.addressFin}</td>
-                        <td>{station.cityFin}</td>
-                        <td>{station.capacity}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-            <button onClick={handlePreviousPage}>Previous page</button>
+                        </thead>
+                        <tbody>
+                        {stations.map((station) => (
+                            <tr key={station.id}>
+                                <td>{station.id}</td>
+                                <Link to={`/singlestation/${station.id}`}>
+                                    {station.nameSwe}
+                                </Link>
+                                <td>{station.addressSwe}</td>
+                                <td>{station.citySwe}</td>
+                                <td>{station.operator}</td>
+                                <td>{station.capacity}</td>
+                                <td>{(station.x).toFixed(5)}</td>
+                                <td>{(station.y).toFixed(5)}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                    <button onClick={handlePreviousPage}>Previous page</button>
                     <span>Page {currentPage + 1} of {totalPages}</span>
-            <button onClick={handleNextPage}>Next page</button>
-                    {/* Button to Swedish version */}
-                    <Link to="/listStationsSwe">
-                        <button>Same in Swedish</button>
-                    </Link>
+                    <button onClick={handleNextPage}>Next page</button>
                 </>
             )}
         </div>
     );
 }
 
-export default ListStations;
+export default ListStationsSwe;

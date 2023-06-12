@@ -1,14 +1,29 @@
 package com.taina.backendjava.DTOs;
 
 public class StationFinDTO {
+
+    private int id;
     private String nameFin;
     private String addressFin;
     private String cityFin;
-    private String operator;
     private int capacity;
-    private double y;
-    private double x;
 
+    public StationFinDTO(int id, String nameFin, String addressFin, String cityFin, int capacity) {
+        this.id=id;
+        this.nameFin = nameFin;
+        this.addressFin = addressFin;
+        this.cityFin = cityFin;
+        this.capacity = capacity;
+
+
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNameFin() {
         return nameFin;
@@ -34,14 +49,6 @@ public class StationFinDTO {
         this.cityFin = cityFin;
     }
 
-    public String getOperator() {
-        return operator;
-    }
-
-    public void setOperator(String operator) {
-        this.operator = operator;
-    }
-
     public int getCapacity() {
         return capacity;
     }
@@ -50,20 +57,6 @@ public class StationFinDTO {
         this.capacity = capacity;
     }
 
-    public double getY() {
-        return y;
-    }
-
-    public void setY(double y) {
-        this.y = y;
-    }
-
-    public double getX() {
-        return x;
-    }
-
-    public void setX(double x) {
-        this.x = x;
 
     }
-}
+

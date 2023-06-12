@@ -1,5 +1,7 @@
 package com.taina.backendjava.controllers;
 
+import com.taina.backendjava.DTOs.StationFinDTO;
+import com.taina.backendjava.DTOs.StationSweDTO;
 import com.taina.backendjava.DTOs.StationViewDTO;
 import com.taina.backendjava.entities.Station;
 import com.taina.backendjava.Services.StationService;
@@ -8,6 +10,7 @@ import com.taina.backendjava.repositories.StationRepository;
 import com.taina.backendjava.repositories.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -58,8 +61,22 @@ public class StationController {
     }
 
     @GetMapping(value = "/search")
-    public ResponseEntity<Page<Station>> searchStationByName(@RequestParam String word, Pageable pageable) {
-        Page<Station> results = srepo.searchStationByName(word, pageable);
+    public ResponseEntity<Page<StationFinDTO>> searchStationByName(@RequestParam String word, Pageable pageable) {
+        Page<StationFinDTO> results = srepo.searchStationByName(word, pageable);
+        if (results.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No stations found");
+        }
+        List<StationFinDTO> dtos = results.getContent();
+
+        Page<StationFinDTO> dtoPage = new PageImpl<>(dtos, pageable, results.getTotalElements());
+
+        return ResponseEntity.ok(dtoPage);
+    }
+
+
+    @GetMapping(value = "/searchSwe")
+    public ResponseEntity<Page<StationSweDTO>> searchStationByNameSwe(@RequestParam String word, Pageable pageable) {
+        Page<StationSweDTO> results = srepo.searchStationByNameSwe(word, pageable);
         if (results.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No stations found");
         }
