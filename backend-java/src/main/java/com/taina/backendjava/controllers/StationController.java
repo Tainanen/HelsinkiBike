@@ -58,7 +58,16 @@ public class StationController {
     }
 
     @GetMapping(value = "/search")
-    public ResponseEntity<Page<StationFinDTO>> searchStationByName(@RequestParam String word, Pageable pageable) {
+    public ResponseEntity<Page<StationFinDTO>> searchStationByName(
+            @RequestParam String word,
+            @RequestParam(defaultValue = "nameFin") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortOrder,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+
+        Sort sort = sortOrder.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+
         Page<StationFinDTO> results = srepo.searchStationByName(word, pageable);
         if (results.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No stations found");
@@ -71,7 +80,16 @@ public class StationController {
     }
 
     @GetMapping(value = "/searchSwe")
-    public ResponseEntity<Page<StationSweDTO>> searchStationByNameSwe(@RequestParam String word, Pageable pageable) {
+    public ResponseEntity<Page<StationSweDTO>> searchStationByNameSwe(
+            @RequestParam String word,
+            @RequestParam(defaultValue = "nameSwe") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortOrder,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+
+        Sort sort = sortOrder.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+
         Page<StationSweDTO> results = srepo.searchStationByNameSwe(word, pageable);
         if (results.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No stations found");
@@ -82,26 +100,7 @@ public class StationController {
 
             return createResponseEntity(dtoPage);
         }
-
- /*
- @GetMapping(value="/sort", produces="application/json")
-
-    public Page<Station> getStationsAndSort(
-            @RequestParam(defaultValue = "departureStationName") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortOrder,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size) {
-
-        Sort sort = sortOrder.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
-        Pageable pageable = PageRequest.of(page, size, sort);
-
-        Page<Trip> trips = trepo.getTripListByPage(pageable);
-
-        return trips;
-    }
-
-  */
-
+        
     @PostMapping(value = "/addStation")
     public ResponseEntity<Station> createStation(@RequestBody Station s) {
         srepo.saveAndFlush(s);
