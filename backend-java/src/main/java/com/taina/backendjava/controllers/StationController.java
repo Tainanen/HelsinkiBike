@@ -100,7 +100,7 @@ public class StationController {
 
             return createResponseEntity(dtoPage);
         }
-        
+
     @PostMapping(value = "/addStation")
     public ResponseEntity<Station> createStation(@RequestBody Station s) {
         srepo.saveAndFlush(s);
