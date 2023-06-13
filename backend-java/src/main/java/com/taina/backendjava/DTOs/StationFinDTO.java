@@ -1,7 +1,6 @@
 package com.taina.backendjava.DTOs;
 
 public class StationFinDTO {
-
     private int id;
     private String nameFin;
     private String addressFin;
@@ -9,7 +8,7 @@ public class StationFinDTO {
     private int capacity;
 
     public StationFinDTO(int id, String nameFin, String addressFin, String cityFin, int capacity) {
-        this.id=id;
+        this.id = id;
         this.nameFin = nameFin;
         this.addressFin = addressFin;
         this.cityFin = cityFin;
@@ -17,6 +16,7 @@ public class StationFinDTO {
 
 
     }
+
     public int getId() {
         return id;
     }

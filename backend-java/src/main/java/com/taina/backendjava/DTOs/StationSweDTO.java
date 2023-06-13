@@ -11,7 +11,7 @@ public class StationSweDTO {
     private int capacity;
 
     public StationSweDTO(int id, String nameSwe, String addressSwe, String citySwe, int capacity) {
-        this.id = id;
+        this.id=id;
         this.nameSwe = nameSwe;
         this.addressSwe = addressSwe;
         this.citySwe = citySwe;

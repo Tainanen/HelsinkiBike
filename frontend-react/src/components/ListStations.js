@@ -76,7 +76,6 @@ function ListStations() {
             <table>
                 <thead>
                 <tr>
-                    <th>Id of the station</th>
                     <th>Name of the station in Finnish</th>
                     <th>Address in Finnish</th>
                     <th>City in Finnish</th>
@@ -87,7 +86,6 @@ function ListStations() {
                 <tbody>
                 {stations.map((station) => (
                     <tr key={station.id}>
-                        <td>{station.id}</td>
                         <Link to={`/singlestation/${station.id}`}>
                             {station.nameFin}
                         </Link>

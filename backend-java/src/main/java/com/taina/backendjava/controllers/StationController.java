@@ -9,10 +9,7 @@ import com.taina.backendjava.Utils.RequestInfo;
 import com.taina.backendjava.repositories.StationRepository;
 import com.taina.backendjava.repositories.TripRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -73,7 +70,6 @@ public class StationController {
         return createResponseEntity(dtoPage);
     }
 
-
     @GetMapping(value = "/searchSwe")
     public ResponseEntity<Page<StationSweDTO>> searchStationByNameSwe(@RequestParam String word, Pageable pageable) {
         Page<StationSweDTO> results = srepo.searchStationByNameSwe(word, pageable);
@@ -86,6 +82,25 @@ public class StationController {
 
             return createResponseEntity(dtoPage);
         }
+
+ /*
+ @GetMapping(value="/sort", produces="application/json")
+
+    public Page<Station> getStationsAndSort(
+            @RequestParam(defaultValue = "departureStationName") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortOrder,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+
+        Sort sort = sortOrder.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        Pageable pageable = PageRequest.of(page, size, sort);
+
+        Page<Trip> trips = trepo.getTripListByPage(pageable);
+
+        return trips;
+    }
+
+  */
 
     @PostMapping(value = "/addStation")
     public ResponseEntity<Station> createStation(@RequestBody Station s) {
