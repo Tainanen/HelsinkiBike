@@ -63,11 +63,11 @@ function ListStations() {
         <div>
             <h1>List of Bike Stations</h1>
             <div>
-                <label htmlFor="search">Search by station name:</label>
+                <label htmlFor="search">Search by station name: </label>
                 <input type="text" id="search" value={searchTerm} onChange={handleSearch} />
             </div>
             <Link to="/stationsSwe">
-                <button>Click here for the information in Swedish</button>
+                <button>Click here for the list of bike stations in Swedish</button>
             </Link>
             {noStationsFound ? (
                 <p>There are no stations with that name.</p>
@@ -76,9 +76,9 @@ function ListStations() {
             <table>
                 <thead>
                 <tr>
-                    <th>Name of the station in Finnish</th>
-                    <th>Address in Finnish</th>
-                    <th>City in Finnish</th>
+                    <th>Name of the station</th>
+                    <th>Address</th>
+                    <th>City</th>
                     <th>Capacity</th>
                 </tr>
 

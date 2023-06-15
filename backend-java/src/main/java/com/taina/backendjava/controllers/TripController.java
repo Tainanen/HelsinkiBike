@@ -1,9 +1,6 @@
 package com.taina.backendjava.controllers;
 
-
-import com.taina.backendjava.DTOs.StationFinDTO;
 import com.taina.backendjava.Utils.RequestInfo;
-import com.taina.backendjava.entities.Station;
 import com.taina.backendjava.entities.Trip;
 import com.taina.backendjava.repositories.StationRepository;
 import com.taina.backendjava.repositories.TripRepository;
@@ -35,6 +32,7 @@ public class TripController {
         this.trepo=trepo;
         this.srepo=srepo;
     }
+
     @GetMapping(value = "{id}")
     public ResponseEntity getTripById(@PathVariable("id") int id) {
         Trip trip = trepo.findById(id).orElse(null);
@@ -43,6 +41,7 @@ public class TripController {
         }
         return createResponseEntity(trip);
     }
+
     @GetMapping(produces="application/json")
     public ResponseEntity<Page<Trip>> getAllTripsListByPage(@RequestParam("page") int pageNumber, @RequestParam("size") int pageSize) {
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
@@ -78,7 +77,6 @@ public class TripController {
         return createResponseEntity(dtoPage);
     }
 
-
     @GetMapping(value="/search")
     public ResponseEntity<Page<Trip>>  searchTripsByStation (@RequestParam String word, Pageable pageable) {
         Page<Trip> results = trepo.searchTripsByStation(word, pageable);
@@ -91,11 +89,13 @@ public class TripController {
 
         return createResponseEntity(dtoPage);
     }
+
     @PostMapping(value="/addTrip")
     public ResponseEntity<Trip> createTrip(@RequestBody Trip t) {
         trepo.saveAndFlush(t);
         return createResponseEntity(t);
     }
+
     @PutMapping("/updateTrip/{id}")
     public ResponseEntity<Trip> updateTrip (@PathVariable int id, @RequestBody Trip t) {
         trepo.saveAndFlush(t);
@@ -112,7 +112,6 @@ public class TripController {
         RequestInfo requestInfo = new RequestInfo("Trip with ID " + id + " has been deleted");
         return createResponseEntity(requestInfo);
     }
-
     }
 
 
